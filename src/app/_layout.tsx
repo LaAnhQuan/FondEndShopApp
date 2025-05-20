@@ -13,6 +13,10 @@ const RootLayout = () => {
                     fontWeight: 'bold',
                 },
             }}>
+            <Stack.Screen
+                name="index"
+                options={{ headerShown: false }}
+            />
             <Stack.Screen name="(tabs)"
                 options={{ headerTitle: "Home" }}
             />
