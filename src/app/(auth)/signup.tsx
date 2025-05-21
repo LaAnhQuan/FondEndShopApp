@@ -2,8 +2,9 @@ import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
 import { APP_COLOR } from "@/utils/constant"
-import { Link } from "expo-router"
-import { useState } from "react"
+import axios from "axios"
+import { Link, router } from "expo-router"
+import { useEffect, useState } from "react"
 import { Text, View, TextInput, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -33,12 +34,31 @@ const styles = StyleSheet.create({
 })
 
 const SignUpPage = () => {
+    // const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL;
 
 
-    const [name, setName] = useState<string>("eric");
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+
+
+    const handleSignUp = async () => {
+        const url = `${process.env.EXPO_PUBLIC_API_URL}/users/register`
+        try {
+            const res = await axios.post(url, { email, password, name, phone });
+
+            if (res.data) {
+                router.navigate("/(auth)/verify")
+            }
+            console.log("check res", res.data);
+
+        } catch (error) {
+            console.log(">>> check error", error)
+
+        }
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -55,10 +75,17 @@ const SignUpPage = () => {
                     setValue={setName}
                 />
                 <ShareInput
-                    title="Email or Phone"
+                    title="Email"
                     keyboardType="email-address"
                     value={email}
                     setValue={setEmail}
+                />
+
+                <ShareInput
+                    title="Phone"
+                    // keyboardType="email-address"
+                    value={phone}
+                    setValue={setPhone}
                 />
 
                 <ShareInput
@@ -71,7 +98,7 @@ const SignUpPage = () => {
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
                     title="Sign Up"
-                    onPress={() => { console.log(name, email, password) }}
+                    onPress={handleSignUp}
                     textStyle={{
                         textTransform: "uppercase",
                         color: "#fff",
