@@ -1,6 +1,18 @@
+export { };
 
+declare global {
+    interface IBackendRes<T> {
+        error?: string | string[];
+        message: string;
+        statusCode?: number | string;
+        data?: T;
+    }
 
-interface ITodo {
-    id: number;
-    title: string;
+    interface IRegister {
+        id: number,
+        name: string,
+        role: number,
+        phone: string
+    }
 }
+
