@@ -1,6 +1,7 @@
 import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
+import { registerAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import axios from "axios"
 import { Link, router } from "expo-router"
@@ -45,9 +46,9 @@ const SignUpPage = () => {
 
 
     const handleSignUp = async () => {
-        const url = `${process.env.EXPO_PUBLIC_API_URL}/users/register`
+
         try {
-            const res = await axios.post(url, { email, password, name, phone });
+            const res = await registerAPI(email, password, name, phone)
 
             if (res.data) {
                 router.navigate("/(auth)/verify")
