@@ -3,6 +3,7 @@ import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
 import { APP_COLOR } from "@/utils/constant"
 import { Link } from "expo-router"
+import { useState } from "react"
 import { Text, View, TextInput, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
 })
 
 const SignUpPage = () => {
+
+
+    const [name, setName] = useState<string>("eric");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -44,20 +51,27 @@ const SignUpPage = () => {
                 </View>
                 <ShareInput
                     title="Full name"
+                    value={name}
+                    setValue={setName}
                 />
                 <ShareInput
                     title="Email or Phone"
                     keyboardType="email-address"
+                    value={email}
+                    setValue={setEmail}
                 />
 
                 <ShareInput
                     title="Password"
+                    secureTextEntry={true}
+                    value={password}
+                    setValue={setPassword}
                 />
 
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
                     title="Sign Up"
-                    onPress={() => { alert("me") }}
+                    onPress={() => { console.log(name, email, password) }}
                     textStyle={{
                         textTransform: "uppercase",
                         color: "#fff",
