@@ -7,6 +7,7 @@ import axios from "axios"
 import { Link, router } from "expo-router"
 import { useEffect, useState } from "react"
 import { Text, View, TextInput, StyleSheet } from "react-native"
+import Toast from "react-native-root-toast"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 const styles = StyleSheet.create({
@@ -53,7 +54,17 @@ const SignUpPage = () => {
             if (res.data) {
                 router.navigate("/(auth)/verify")
             } else {
-                alert(res.message)
+                // Add a Toast on screen.
+                const m = Array.isArray(res.message)
+                    ? res.message[0] : res.message;
+                let toast = Toast.show(m, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1,
+                    position: -100,
+                    animation: true
+                });
             }
 
         } catch (error) {
