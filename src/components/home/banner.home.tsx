@@ -1,18 +1,44 @@
+import { bannerAPI, getURLBaseBackEnd } from "@/utils/api";
 import * as React from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Image, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import bn1 from "@/assets/banner/1746550809789-bn1.jpg";
+import bn2 from "@/assets/banner/1746495775100-bn2.jpg";
+import bn3 from "@/assets/banner/1746495775100-bn3.jpg";
 import Carousel, {
     ICarouselInstance,
     Pagination,
 } from "react-native-reanimated-carousel";
 
-const data = [...new Array(6).keys()];
 
 
 function BannerHome() {
     const ref = React.useRef<ICarouselInstance>(null);
     const progress = useSharedValue<number>(0);
     const width = Dimensions.get("window").width;
+    const [sliders, setSliders] = React.useState<IBanner[]>([]);
+
+    React.useEffect(() => {
+        // Fetch image URLs from the backend
+        const fetchImages = async () => {
+            try {
+                const res = await bannerAPI();  // Thay thế URL backend của bạn tại đây
+                if (res.data) {
+                    // const imageUrls = res.data.map((item: { image: string }) => item.image);
+                    setSliders(res.data);
+
+                }
+
+
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
+    }, []);
+
+    // console.log("check setSliders 2", sliders);
 
     const onPressPagination = (index: number) => {
         ref.current?.scrollTo({
@@ -25,31 +51,34 @@ function BannerHome() {
         });
     };
 
+
     return (
         <View style={{ flex: 1 }}>
             <Carousel
                 ref={ref}
                 width={width}
-                height={width / 2}
-                data={data}
+                height={width / 4}
+                data={sliders}
                 onProgressChange={progress}
-                renderItem={({ index }) => (
-                    <View
+                renderItem={({ item, index }) => (
+                    <Image
                         style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
+                            width: width,
+                            height: width / 3.7,
+                            resizeMode: 'cover',
                         }}
-                    >
-                        <Text style={{ textAlign: "center", fontSize: 30 }}>{index}</Text>
-                    </View>
+                        source={{ uri: `${getURLBaseBackEnd()}/images/${item.image}` }}
+                    />
                 )}
             />
 
             <Pagination.Basic
                 progress={progress}
-                data={data}
-                dotStyle={{ backgroundColor: "rgba(0,0,0,0.2)", borderRadius: 50 }}
+                data={sliders}
+                dotStyle={{
+                    height: 5, width: 5,
+                    backgroundColor: "rgba(0,0,0,0.2)", borderRadius: 50
+                }}
                 containerStyle={{ gap: 5, marginTop: 10 }}
                 onPress={onPressPagination}
             />

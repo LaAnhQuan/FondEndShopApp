@@ -12,3 +12,15 @@ export const loginAPI = (email: string, password: string, phone: string) => {
     const url = `/users/login`;
     return axios.post<IBackendRes<ILogin>>(url, { email, password, phone });
 }
+
+export const bannerAPI = () => {
+    const url = `/banners`;
+    return axios.get<IBackendRes<IBanner[]>>(url);
+}
+
+export const getURLBaseBackEnd = () => {
+    const backend = Platform.OS === 'android'
+        ? process.env.EXPO_PUBLIC_ANDROID_API_URL
+        : process.env.EXPO_PUBLIC_IOS_API_URL;
+    return backend;
+}
