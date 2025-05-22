@@ -69,99 +69,100 @@ const SignUpPage = () => {
         }
     }
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <Formik
-                validationSchema={SignUpSchema}
-                initialValues={{ email: '', password: '', name: '', phone: '' }}
-                onSubmit={values => handleSignUp(values.email, values.password, values.name, values.phone)}
-            >
-                {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-                    <View style={styles.container}>
-                        <View>
-                            <Text style={{
-                                fontSize: 25,
-                                fontWeight: 600,
-                                marginVertical: 30
-                            }}>Sign Up</Text>
-                        </View>
-                        <ShareInput
-                            title="Full name"
-                            onChangeText={handleChange('name')}
-                            onBlur={handleBlur('name')}
-                            value={values.name}
-                            error={errors.name}
-                        />
-                        <ShareInput
-                            keyboardType="email-address"
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
-                            error={errors.email}
-                        />
-
-                        <ShareInput
-                            title="Phone"
-                            onChangeText={handleChange('phone')}
-                            onBlur={handleBlur('phone')}
-                            value={values.phone}
-                            error={errors.phone}
-                        />
-
-                        <ShareInput
-                            title="Password"
-                            secureTextEntry={true}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            error={errors.password}
-                        />
-
-                        <View style={{ marginVertical: 10 }}></View>
-                        <ShareButton
-                            title="Sign Up"
-                            onPress={handleSubmit}
-                            textStyle={{
-                                textTransform: "uppercase",
-                                color: "#fff",
-                                paddingVertical: 5
-                            }}
-                            btnStyle={{
-                                justifyContent: "center",
-                                borderRadius: 30,
-                                marginHorizontal: 50,
-                                paddingVertical: 10,
-                                backgroundColor: APP_COLOR.ORANGE,
-
-                            }}
-                            pressStyle={{ alignSelf: "stretch" }}
-                        />
-
-                        <View style={{
-                            marginVertical: 15,
-                            flexDirection: "row",
-                            gap: 10,
-                            justifyContent: "center"
-                        }}>
-                            <Text style={{
-                                color: "black",
-                            }}>
-                                Already have an account?
-                            </Text>
-                            <Link href={"/(auth)/login"}>
-                                <Text style={{ color: "black", textDecorationLine: 'underline' }}>
-                                    Sign In.
-                                </Text>
-                            </Link>
-
-                        </View>
-
-                        <SocialButton
-                            title="Sign up with"
-                        />
+        // <SafeAreaView style={{ flex: 1 }}>
+        <Formik
+            validationSchema={SignUpSchema}
+            initialValues={{ email: '', password: '', name: '', phone: '' }}
+            onSubmit={values => handleSignUp(values.email, values.password, values.name, values.phone)}
+        >
+            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+                <View style={styles.container}>
+                    <View>
+                        <Text style={{
+                            fontSize: 25,
+                            fontWeight: 600,
+                            marginVertical: 30
+                        }}>Sign Up</Text>
                     </View>
-                )}
-            </Formik>
-        </SafeAreaView>
+                    <ShareInput
+                        title="Full name"
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        value={values.name}
+                        error={errors.name}
+                    />
+                    <ShareInput
+                        title="Email"
+                        keyboardType="email-address"
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                        error={errors.email}
+                    />
+
+                    <ShareInput
+                        title="Phone"
+                        onChangeText={handleChange('phone')}
+                        onBlur={handleBlur('phone')}
+                        value={values.phone}
+                        error={errors.phone}
+                    />
+
+                    <ShareInput
+                        title="Password"
+                        secureTextEntry={true}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        value={values.password}
+                        error={errors.password}
+                    />
+
+                    <View style={{ marginVertical: 10 }}></View>
+                    <ShareButton
+                        title="Sign Up"
+                        onPress={handleSubmit}
+                        textStyle={{
+                            textTransform: "uppercase",
+                            color: "#fff",
+                            paddingVertical: 5
+                        }}
+                        btnStyle={{
+                            justifyContent: "center",
+                            borderRadius: 30,
+                            marginHorizontal: 50,
+                            paddingVertical: 10,
+                            backgroundColor: APP_COLOR.ORANGE,
+
+                        }}
+                        pressStyle={{ alignSelf: "stretch" }}
+                    />
+
+                    <View style={{
+                        marginVertical: 15,
+                        flexDirection: "row",
+                        gap: 10,
+                        justifyContent: "center"
+                    }}>
+                        <Text style={{
+                            color: "black",
+                        }}>
+                            Already have an account?
+                        </Text>
+                        <Link href={"/(auth)/login"}>
+                            <Text style={{ color: "black", textDecorationLine: 'underline' }}>
+                                Sign In.
+                            </Text>
+                        </Link>
+
+                    </View>
+
+                    <SocialButton
+                        title="Sign up with"
+                    />
+                </View>
+            )}
+        </Formik>
+        // </SafeAreaView>
     )
 }
 

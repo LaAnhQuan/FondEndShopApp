@@ -15,7 +15,7 @@ const HomeTab = () => {
             data={data}
             style={styles.list}
             renderItem={() => <View style={styles.item} />}
-            HeaderComponent={<HeaderHome />}
+            // HeaderComponent={<HeaderHome />}
             StickyElementComponent={<SearchHome />}
             TopListElementComponent={<TopListHome />}
         />
