@@ -13,7 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
         marginHorizontal: 20,
         gap: 10
     },
@@ -52,7 +51,11 @@ const SignUpPage = () => {
             const res = await registerAPI(email, password, name, phone)
 
             if (res.data) {
-                router.navigate("/(auth)/verify")
+                router.navigate({
+                    pathname: "/(auth)/verify",
+                    params: { email: email }
+                })
+
             } else {
                 // Add a Toast on screen.
                 const m = Array.isArray(res.message)
