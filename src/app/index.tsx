@@ -9,7 +9,7 @@ import Lotus from '@/assets/auth/hinh-nen-hoa-sen-3d-11.png'
 import dophin from '@/assets/auth/login and register.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
 
 })
 const WelcomePage = () => {
-    if (true) {
-        return (
-            <Redirect href={"/(auth)/signup"} />
-        )
-    }
+    // if (true) {
+    //     return (
+    //         <Redirect href={"/(auth)/signup"} />
+    //     )
+    // }
     return (
         <ImageBackground
             style={{ flex: 1 }}
@@ -110,7 +110,7 @@ const WelcomePage = () => {
                         <View>
                             <ShareButton
                                 title="Start with your email or phone"
-                                onPress={() => { alert("me") }}
+                                onPress={() => { router.navigate("/(auth)/login") }}
                                 textStyle={{ color: "#fff", paddingVertical: 5 }}
                                 btnStyle={{
                                     justifyContent: "center",

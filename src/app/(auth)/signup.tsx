@@ -142,7 +142,7 @@ const SignUpPage = () => {
                     }}>
                         Already have an account?
                     </Text>
-                    <Link href={"/(auth)/signup"}>
+                    <Link href={"/(auth)/login"}>
                         <Text style={{ color: "black", textDecorationLine: 'underline' }}>
                             Sign In.
                         </Text>
@@ -150,7 +150,9 @@ const SignUpPage = () => {
 
                 </View>
 
-                <SocialButton />
+                <SocialButton
+                    title="Sign up with"
+                />
             </View>
         </SafeAreaView>
     )

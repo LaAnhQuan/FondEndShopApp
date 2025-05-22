@@ -21,6 +21,10 @@ const RootLayout = () => {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
+                        name="(auth)/login"
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
                         name="(auth)/signup"
                         options={{ headerShown: false }}
                     />
@@ -33,9 +37,6 @@ const RootLayout = () => {
                     />
                     <Stack.Screen name="product/index"
                         options={{ headerTitle: "Product" }}
-                    />
-                    <Stack.Screen name="(auth)/login"
-                        options={{ headerTitle: "Login" }}
                     />
                 </Stack>
             </SafeAreaView>

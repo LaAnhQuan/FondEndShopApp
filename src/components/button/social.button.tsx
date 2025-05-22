@@ -11,10 +11,14 @@ const styles = StyleSheet.create({
     }
 })
 
-const SocialButton = () => {
+interface IProps {
+    title: string
+}
+const SocialButton = (props: IProps) => {
+    const { title } = props;
     return (
         <View style={styles.welcomeBtn}>
-            <TextBetweenLine title="Sign up with" />
+            <TextBetweenLine title={title} />
             <View style={{
                 flexDirection: "row",
                 justifyContent: "center",
