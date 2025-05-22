@@ -1,11 +1,13 @@
 import { Stack } from "expo-router"
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const RootLayout = () => {
     return (
-        <RootSiblingParent>
-            <SafeAreaView style={{ flex: 1 }}>
+        <GestureHandlerRootView>
+            <RootSiblingParent>
+                {/* <SafeAreaView style={{ flex: 1 }}> */}
                 <Stack
                     screenOptions={{
                         headerStyle: {
@@ -33,14 +35,15 @@ const RootLayout = () => {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen name="(tabs)"
-                        options={{ headerTitle: "Home" }}
+                        options={{ headerShown: false }}
                     />
                     <Stack.Screen name="product/index"
                         options={{ headerTitle: "Product" }}
                     />
                 </Stack>
-            </SafeAreaView>
-        </RootSiblingParent>
+                {/* </SafeAreaView> */}
+            </RootSiblingParent>
+        </GestureHandlerRootView>
     )
 }
 export default RootLayout
