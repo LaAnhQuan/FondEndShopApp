@@ -1,7 +1,7 @@
 import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
-import { registerAPI } from "@/utils/api"
+import { loginAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import { Link, router } from "expo-router"
 import { useState } from "react"
@@ -22,34 +22,30 @@ const LoginPage = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleLogin = async () => {
-
-        console.log(">>> check email = ", email, " and password = ", password)
-        // try {
-
-        //     const res = await registerAPI(email, password, name);
-        //     if (res.data) {
-        //         router.replace({
-        //             pathname: "/(auth)/verify",
-        //             params: { email: email }
-        //         })
-
-        //     } else {
-        //         const m = Array.isArray(res.message)
-        //             ? res.message[0] : res.message;
-
-        //         Toast.show(m, {
-        //             duration: Toast.durations.LONG,
-        //             textColor: "white",
-        //             backgroundColor: APP_COLOR.ORANGE,
-        //             opacity: 1
-        //         });
-
-        //     }
-        // } catch (error) {
-        //     console.log(">>> check error: ", error)
-        // }
+        try {
+            setLoading(true)
+            const res = await loginAPI(email, password, phone);
+            setLoading(false)
+            if (res.data) {
+                router.replace("/(tabs)");
+            } else {
+                const m = Array.isArray(res.message)
+                    ? res.message[0] : res.message;
+                let toast = Toast.show(m, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1,
+                    position: -180,
+                    animation: true
+                });
+            }
+        } catch (error) {
+            console.log(">>> check error: ", error)
+        }
     }
 
     return (
@@ -86,6 +82,7 @@ const LoginPage = () => {
 
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
+                    loading={loading}
                     title="Login"
                     onPress={handleLogin}
                     textStyle={{
@@ -102,6 +99,7 @@ const LoginPage = () => {
 
                     }}
                     pressStyle={{ alignSelf: "stretch" }}
+
                 />
 
                 <View style={{

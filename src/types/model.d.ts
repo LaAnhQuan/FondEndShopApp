@@ -14,5 +14,14 @@ declare global {
         role: number,
         phone: string
     }
+
+    interface ILogin {
+        id: number,
+        email: string,
+        name: string,
+        role: number,
+        avatar: string,
+        phone: string
+    }
 }
 
