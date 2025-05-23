@@ -2,60 +2,119 @@ import CustomFlatList from "@/components/CustomFlatList/CustomFlatList";
 import HeaderHome from "@/components/home/header.home";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
+import p1 from "@/assets/icons/giahoi.png";
+import React, { useEffect, useState } from "react";
+import { currencyFormatter, getURLBaseBackEnd, productsAPI } from "@/utils/api";
+import { APP_COLOR } from "@/utils/constant";
 
-const data = Array(10).fill(1);
+const { width } = Dimensions.get("window");
+const SPACING = 8;
+const ITEM_WIDTH = (width - SPACING * 3) / 2;
+const ITEM_HEIGHT = ITEM_WIDTH + 80;
+
+const data = Array(8).fill({
+    title: "Sản phẩm đẹp tuyệt",
+    price: "89.000",
+    image: p1
+});
+
+
 
 const HomeTab = () => {
 
+    const [product, setProduct] = useState<IProduct[]>([]);
+
+    React.useEffect(() => {
+        // Fetch image URLs from the backend
+        const fetchProduct = async () => {
+            try {
+                const res = await productsAPI();  // Thay thế URL backend của bạn tại đây
+                if (res.data) {
+                    // const imageUrls = res.data.map((item: { image: string }) => item.image);
+                    setProduct(res.data);
+
+                }
+
+
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchProduct();
+    }, []);
+
+
+    console.log("check product", product)
+
+
     return (
-        // <SafeAreaView style={styles.container}>
         <CustomFlatList
-            data={data}
+            data={product}
+            numColumns={2}
             style={styles.list}
-            renderItem={() => <View style={styles.item} />}
-            // HeaderComponent={<HeaderHome />}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => (
+                <View style={styles.item}>
+                    <Image
+                        source={{ uri: `${getURLBaseBackEnd()}/images/${item.image}` }}
+                        style={styles.image}
+                    />
+                    <View style={styles.info}>
+                        <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
+                        <Text style={(styles.price)}>
+                            {currencyFormatter(item.price)}
+                        </Text>
+                    </View>
+                </View>
+            )}
             StickyElementComponent={<SearchHome />}
             TopListElementComponent={<TopListHome />}
         />
-        // </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "#ecf0f1",
-        flex: 1,
-        justifyContent: "center",
-        overflow: "hidden",
-
-    },
-    header: {
-        borderColor: "red",
-        borderWidth: 5,
-        height: 100,
-        marginBottom: 6,
-        width: "100%"
+    list: {
+        padding: SPACING,
     },
     item: {
-        borderColor: "green",
-        borderWidth: 5,
-        height: 100,
-        marginBottom: 6,
-        width: "100%"
+        width: ITEM_WIDTH,
+        height: ITEM_HEIGHT,
+        margin: SPACING / 2,
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        overflow: "hidden",
+        elevation: 2, // đổ bóng nhẹ (Android)
+        shadowColor: "#000", // đổ bóng nhẹ (iOS)
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
-    list: {
-        overflow: "hidden"
-    },
-    sticky: {
-        backgroundColor: "#2555FF50",
-        borderColor: "blue",
-        borderWidth: 5,
-        height: 100,
-        marginBottom: 6,
-        width: "100%"
-    },
+    image: {
+        width: "100%",
+        height: "66%",
+        resizeMode: "cover",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        backgroundColor: "#eee",
 
+    },
+    info: {
+        flex: 1,
+        padding: 8,
+        justifyContent: "center",
+    },
+    title: {
+        fontSize: 13,
+        color: "#333",
+    },
+    price: {
+        marginTop: 4,
+        color: APP_COLOR.ORANGE,
+        fontWeight: "bold",
+    },
 });
+
 export default HomeTab;

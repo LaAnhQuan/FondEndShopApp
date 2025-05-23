@@ -29,5 +29,17 @@ declare global {
         image: any,
         status: number
     }
+
+    interface IProduct {
+        id: number,
+        name: string,
+        price: number,
+        oldprice: number,
+        image: any,
+        total_sold: number,
+        rating: number,
+        brand_id: number,
+        category_id: number
+    }
 }
 

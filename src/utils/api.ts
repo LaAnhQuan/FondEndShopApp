@@ -24,3 +24,28 @@ export const getURLBaseBackEnd = () => {
         : process.env.EXPO_PUBLIC_IOS_API_URL;
     return backend;
 }
+
+export const productsAPI = () => {
+    const url = `/products`;
+    return axios.get<IBackendRes<IProduct[]>>(url);
+}
+
+
+export const currencyFormatter = (value: any) => {
+    const options = {
+        significantDigits: 2,
+        thousandsSeparator: '.',
+        decimalSeparator: ',',
+        symbol: 'đ'
+    }
+
+    if (typeof value !== 'number') value = 0.0
+    value = value.toFixed(options.significantDigits)
+
+    const [currency, decimal] = value.split('.')
+    return `${currency.replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        options.thousandsSeparator
+    )}${options.symbol}`
+}
+
