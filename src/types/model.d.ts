@@ -15,12 +15,15 @@ declare global {
     }
 
     interface ILogin {
-        id: number,
-        email: string,
-        name: string,
-        role: number,
-        avatar: string,
-        phone: string
+        user: {
+            id: number,
+            email: string,
+            name: string,
+            role: number,
+            avatar: any,
+            phone: string
+        };
+        token: string;
     }
 
     interface IBanner {

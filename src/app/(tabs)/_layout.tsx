@@ -86,11 +86,6 @@ const TabLayout = () => {
                 headerShown: false,
                 tabBarLabelStyle: { paddingBottom: 3 },
                 tabBarActiveTintColor: APP_COLOR.ORANGE,
-                // tabBarStyle: {
-                //     height: 60, // 👈 chỉnh độ cao ở đây
-                //     // paddingBottom: 10, 
-                //     // paddingTop: 5,
-                // },
             })}
         // sceneContainerStyle={{ backgroundColor: "#fff" }}
         >

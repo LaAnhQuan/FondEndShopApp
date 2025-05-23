@@ -40,7 +40,7 @@ const HomeTab = () => {
     }, []);
 
 
-    console.log("check product", product)
+    // console.log("check product", product)
 
 
     return (
