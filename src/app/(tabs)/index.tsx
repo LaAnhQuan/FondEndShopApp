@@ -13,12 +13,6 @@ const SPACING = 8;
 const ITEM_WIDTH = (width - SPACING * 3) / 2;
 const ITEM_HEIGHT = ITEM_WIDTH + 80;
 
-const data = Array(8).fill({
-    title: "Sản phẩm đẹp tuyệt",
-    price: "89.000",
-    image: p1
-});
-
 
 
 const HomeTab = () => {
