@@ -1,4 +1,5 @@
 import axios from "@/utils/axios.customize";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
 export const registerAPI = (email: string, password: string, name: string, phone: string) => {
@@ -11,6 +12,11 @@ export const registerAPI = (email: string, password: string, name: string, phone
 export const loginAPI = (email: string, password: string, phone: string) => {
     const url = `/users/login`;
     return axios.post<IBackendRes<ILogin>>(url, { email, password, phone });
+}
+
+export const getAccountAPI = () => {
+    const url = `/users`;
+    return axios.get<IBackendRes<ILogin>>(url);
 }
 
 export const bannerAPI = () => {
@@ -48,4 +54,18 @@ export const currencyFormatter = (value: any) => {
         options.thousandsSeparator
     )}${options.symbol}`
 }
+
+export const printAsyncStorage = () => {
+    AsyncStorage.getAllKeys((err, keys) => {
+        AsyncStorage.multiGet(keys!, (error, stores) => {
+            let asyncStorage: any = {}
+            stores?.map((result, i, store) => {
+                asyncStorage[store[i][0]] = store[i][1]
+            });
+            console.log(JSON.stringify(asyncStorage, null, 2));
+        });
+    });
+};
+
+
 

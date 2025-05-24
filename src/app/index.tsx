@@ -10,6 +10,11 @@ import dophin from '@/assets/auth/login and register.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
 import { Link, Redirect, router } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from "react";
+import { getAccountAPI } from "@/utils/api";
+import { useCurrentApp } from "@/context/app.context";
+
 
 const styles = StyleSheet.create({
     container: {
@@ -41,6 +46,23 @@ const styles = StyleSheet.create({
 
 })
 const WelcomePage = () => {
+
+    const { setAppState } = useCurrentApp();
+    useEffect(() => {
+        const fetchAccount = async () => {
+            const res = await getAccountAPI();
+            if (res.data) {
+                setAppState({
+                    user: res.data,
+                    token: await AsyncStorage.getItem("token")
+                })
+                router.replace("/(tabs)")
+            } else {
+                //error
+            }
+        }
+        fetchAccount()
+    }, [])
     // if (true) {
     //     return (
     //         <Redirect href={"/(tabs)"} />

@@ -5,6 +5,7 @@ import { useCurrentApp } from "@/context/app.context"
 import { loginAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import { LoginSchema } from "@/utils/validate.schema"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Link, router } from "expo-router"
 import { Formik } from "formik"
 import { useState } from "react"
@@ -33,6 +34,8 @@ const LoginPage = () => {
             const res = await loginAPI(email, password, phone);
             setLoading(false)
             if (res.data) {
+                await AsyncStorage.setItem("token", res.data.token)
+                console.log("check token", res.data.token)
                 setAppState(res.data)
                 router.replace("/(tabs)");
             } else {
@@ -51,6 +54,8 @@ const LoginPage = () => {
             console.log(">>> check error: ", error)
         }
     }
+
+
 
     return (
         // <SafeAreaView style={{ flex: 1 }}>
