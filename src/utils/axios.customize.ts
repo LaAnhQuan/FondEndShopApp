@@ -13,7 +13,7 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(async function (config) {
     // Do something before request is sent
-    config.headers["delay"] = 3000;
+    // config.headers["delay"] = 3000;
     const token = await AsyncStorage.getItem("token");
     config.headers["Authorization"] = `Bearer ${token}`;
 
