@@ -1,15 +1,14 @@
 import CustomFlatList from "@/components/CustomFlatList/CustomFlatList";
-import HeaderHome from "@/components/home/header.home";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
 import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
-import p1 from "@/assets/icons/giahoi.png";
 import React, { useEffect, useState } from "react";
 import { currencyFormatter, getURLBaseBackEnd, productsAPI } from "@/utils/api";
-import { APP_COLOR } from "@/utils/constant";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CollectionHome from "@/components/home/collection.home";
 
 const { width } = Dimensions.get("window");
-const SPACING = 8;
+const SPACING = 6;
 const ITEM_WIDTH = (width - SPACING * 3) / 2;
 const ITEM_HEIGHT = ITEM_WIDTH + 80;
 
@@ -39,75 +38,37 @@ const HomeTab = () => {
         fetchProduct();
     }, []);
 
-
-    // console.log("check product", product)
-
-
     return (
-        <CustomFlatList
-            data={product}
-            numColumns={2}
-            style={styles.list}
-            keyExtractor={(_, index) => index.toString()}
-            renderItem={({ item }) => (
-                <View style={styles.item}>
-                    <Image
-                        source={{ uri: `${getURLBaseBackEnd()}/images/${item.image}` }}
-                        style={styles.image}
-                    />
-                    <View style={styles.info}>
-                        <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
-                        <Text style={(styles.price)}>
-                            {currencyFormatter(item.price)}
-                        </Text>
+        <SafeAreaView>
+
+            <CustomFlatList
+                data={product}
+                numColumns={2}
+                style={styles.list}
+                keyExtractor={(_, index) => index.toString()}
+                renderItem={({ item }) => (
+                    <View style={{ backgroundColor: "#e9e9e9", flex: 1 }}>
+                        <CollectionHome
+                            name={item.name}
+                            price={item.price}
+                            oldprice={item.oldprice}
+                            image={item.image}
+                            rating={item.rating}
+                            total_sold={item.total_sold}
+                        />
                     </View>
-                </View>
-            )}
-            StickyElementComponent={<SearchHome />}
-            TopListElementComponent={<TopListHome />}
-        />
+                )}
+                StickyElementComponent={<SearchHome />}
+                TopListElementComponent={<TopListHome />}
+            />
+
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     list: {
         padding: SPACING,
-    },
-    item: {
-        width: ITEM_WIDTH,
-        height: ITEM_HEIGHT,
-        margin: SPACING / 2,
-        borderRadius: 5,
-        backgroundColor: "#fff",
-        overflow: "hidden",
-        elevation: 2, // đổ bóng nhẹ (Android)
-        shadowColor: "#000", // đổ bóng nhẹ (iOS)
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-    },
-    image: {
-        width: "100%",
-        height: "66%",
-        resizeMode: "cover",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        backgroundColor: "#eee",
-
-    },
-    info: {
-        flex: 1,
-        padding: 8,
-        justifyContent: "center",
-    },
-    title: {
-        fontSize: 13,
-        color: "#333",
-    },
-    price: {
-        marginTop: 4,
-        color: APP_COLOR.ORANGE,
-        fontWeight: "bold",
     },
 });
 

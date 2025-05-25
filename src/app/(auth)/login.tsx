@@ -58,97 +58,97 @@ const LoginPage = () => {
 
 
     return (
-        // <SafeAreaView style={{ flex: 1 }}>
-        <Formik
-            validationSchema={LoginSchema}
-            initialValues={{ email: '', password: '', phone: '' }}
-            onSubmit={values => handleLogin(values.email, values.password, values.phone)}
-        >
-            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-                <View style={styles.container}>
-                    <View>
-                        <Text style={{
-                            fontSize: 25,
-                            fontWeight: 600,
-                            marginVertical: 30
-                        }}>Login</Text>
-                    </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <Formik
+                validationSchema={LoginSchema}
+                initialValues={{ email: '', password: '', phone: '' }}
+                onSubmit={values => handleLogin(values.email, values.password, values.phone)}
+            >
+                {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+                    <View style={styles.container}>
+                        <View>
+                            <Text style={{
+                                fontSize: 25,
+                                fontWeight: 600,
+                                marginVertical: 30
+                            }}>Login</Text>
+                        </View>
 
-                    <ShareInput
-                        title="Email"
-                        keyboardType="email-address"
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                        error={errors.email}
-                    />
+                        <ShareInput
+                            title="Email"
+                            keyboardType="email-address"
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                            error={errors.email}
+                        />
 
-                    <ShareInput
-                        title="Phone"
-                        // keyboardType="email-address"
-                        onChangeText={handleChange('phone')}
-                        onBlur={handleBlur('phone')}
-                        value={values.phone}
-                        error={errors.phone}
-                    />
+                        <ShareInput
+                            title="Phone"
+                            // keyboardType="email-address"
+                            onChangeText={handleChange('phone')}
+                            onBlur={handleBlur('phone')}
+                            value={values.phone}
+                            error={errors.phone}
+                        />
 
-                    <ShareInput
-                        title="Password"
-                        secureTextEntry={true}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                        error={errors.password}
-                    />
+                        <ShareInput
+                            title="Password"
+                            secureTextEntry={true}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            error={errors.password}
+                        />
 
-                    <View style={{ marginVertical: 10 }}></View>
-                    <ShareButton
-                        loading={loading}
-                        title="Login"
-                        onPress={handleSubmit as any}
-                        textStyle={{
-                            textTransform: "uppercase",
-                            color: "#fff",
-                            paddingVertical: 5
-                        }}
-                        btnStyle={{
-                            justifyContent: "center",
-                            borderRadius: 30,
-                            marginHorizontal: 50,
-                            paddingVertical: 10,
-                            backgroundColor: APP_COLOR.ORANGE,
+                        <View style={{ marginVertical: 10 }}></View>
+                        <ShareButton
+                            loading={loading}
+                            title="Login"
+                            onPress={handleSubmit as any}
+                            textStyle={{
+                                textTransform: "uppercase",
+                                color: "#fff",
+                                paddingVertical: 5
+                            }}
+                            btnStyle={{
+                                justifyContent: "center",
+                                borderRadius: 30,
+                                marginHorizontal: 50,
+                                paddingVertical: 10,
+                                backgroundColor: APP_COLOR.ORANGE,
 
-                        }}
-                        pressStyle={{ alignSelf: "stretch" }}
+                            }}
+                            pressStyle={{ alignSelf: "stretch" }}
 
-                    />
+                        />
 
-                    <View style={{
-                        marginVertical: 15,
-                        flexDirection: "row",
-                        gap: 10,
-                        justifyContent: "center"
-                    }}>
-                        <Text style={{
-                            color: "black",
+                        <View style={{
+                            marginVertical: 15,
+                            flexDirection: "row",
+                            gap: 10,
+                            justifyContent: "center"
                         }}>
-                            Don't have an account?
-                        </Text>
-                        <Link href={"/(auth)/signup"}>
-                            <Text style={{ color: APP_COLOR.ORANGE, textDecorationLine: 'underline' }}>
-                                Sign Up.
+                            <Text style={{
+                                color: "black",
+                            }}>
+                                Don't have an account?
                             </Text>
-                        </Link>
+                            <Link href={"/(auth)/signup"}>
+                                <Text style={{ color: APP_COLOR.ORANGE, textDecorationLine: 'underline' }}>
+                                    Sign Up.
+                                </Text>
+                            </Link>
 
+                        </View>
+
+                        <SocialButton
+                            title="Sign in with"
+                        />
                     </View>
-
-                    <SocialButton
-                        title="Sign in with"
-                    />
-                </View>
-            )}
-        </Formik>
-        // </SafeAreaView>
+                )}
+            </Formik>
+        </SafeAreaView>
     )
 }
 
