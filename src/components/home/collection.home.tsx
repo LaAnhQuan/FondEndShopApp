@@ -1,10 +1,11 @@
 import { APP_COLOR } from "@/utils/constant";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import demo from "@/assets/demo.jpg";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { currencyFormatter, getURLBaseBackEnd } from "@/utils/api";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React from "react";
+import { router } from "expo-router";
 
 interface IProps {
     image?: any | null;
@@ -25,8 +26,7 @@ const CollectionHome = React.memo((props: IProps) => {
     const { name, image, price, oldprice, total_sold, rating } = props;
 
     return (
-        <>
-
+        <Pressable onPress={() => router.navigate("/product")}>
             <View style={styles.container}>
                 <View style={styles.image}>
                     <Image source={{ uri: `${getURLBaseBackEnd()}/images/${image}` }} style={styles.img} />
@@ -68,7 +68,7 @@ const CollectionHome = React.memo((props: IProps) => {
                     </View>
                 </View>
             </View>
-        </>
+        </Pressable>
     );
 });
 

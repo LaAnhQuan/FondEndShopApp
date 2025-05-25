@@ -56,7 +56,7 @@ const RootLayout = () => {
 
                             />
                             <Stack.Screen name="product/index"
-                                options={{ headerTitle: "Product" }}
+                                options={{ headerShown: false }}
                             />
                         </Stack>
                     </ThemeProvider>
