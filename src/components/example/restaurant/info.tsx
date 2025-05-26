@@ -3,12 +3,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { View, Text } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { currencyFormatter } from '@/utils/api';
 
 interface IProps {
     infoHeight: number;
+    product: IProductId | null;
 }
 const Info = (props: IProps) => {
-    const { infoHeight } = props;
+    const { infoHeight, product } = props;
 
     return (
         <View style={{
@@ -22,9 +24,32 @@ const Info = (props: IProps) => {
                     </View>
                     <Text>{` `}</Text>
                     <Ionicons name="shield-checkmark" size={20} color="orange" />
-                    <Text style={{ fontSize: 20, fontWeight: "600" }}> Mì cay ăn vặt - hỏi dân it Trái Cây Sạch & Đồ Ăn Vặt</Text>
+                    <Text>{` `}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: "600" }}>{product?.name}</Text>
                 </Text>
+                {/* <Text style={{ color: APP_COLOR.ORANGE, fontWeight: "bold", fontSize: 20 }}>{currencyFormatter(product?.price)}</Text> */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                    {/* Giá hiện tại */}
+                    <Text style={{
+                        color: APP_COLOR.ORANGE,
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        marginRight: 10
+                    }}>
+                        {currencyFormatter(product?.price)}
+                    </Text>
+
+                    {/* Giá gốc bị gạch ngang */}
+                    <Text style={{
+                        color: '#888',
+                        fontSize: 16,
+                        textDecorationLine: 'line-through'
+                    }}>
+                        {currencyFormatter(product?.oldprice)}
+                    </Text>
+                </View>
             </View>
+
             <View style={{ marginHorizontal: 10, marginBottom: 10, flexDirection: "row", justifyContent: "space-between" }}>
                 <View style={{ gap: 10, flexDirection: "row" }}>
                     <View style={{ gap: 3, flexDirection: "row", alignSelf: "flex-start" }}>
@@ -66,12 +91,41 @@ const Info = (props: IProps) => {
                             <Text>Giảm 20% tối đa 55k cho đơn từ 200k</Text></View>
                         <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                             <AntDesign name="gift" size={12} color={APP_COLOR.ORANGE} />
-                            <Text>Mã giảm 25% trên giá món</Text>
+                            <Text>Mã giảm 25% trên sản phẩm</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                            <AntDesign name="gift" size={12} color={APP_COLOR.ORANGE} />
+                            <Text>Trả hàng miễn phí 15 ngày</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                            <AntDesign name="gift" size={12} color={APP_COLOR.ORANGE} />
+                            <Text>SPayLater: Mua trước trả sau</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ height: 10, backgroundColor: "#e9e9e9" }}></View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 5 }}>
+                    <Text >
+                        Chi Tiết sản phẩm
+                    </Text>
+                    <Text>Xem chi tiết</Text>
+                </View>
+
+                <View style={{ height: 1, backgroundColor: "#e9e9e9" }}></View>
+
+                <Text style={{ padding: 10 }}>Mô tả sản phẩm</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+                <Text style={{ padding: 10 }}>{product?.description}</Text>
+
             </View>
+
 
 
         </View>

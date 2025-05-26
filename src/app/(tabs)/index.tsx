@@ -49,6 +49,7 @@ const HomeTab = () => {
                 renderItem={({ item }) => (
                     <View style={{ backgroundColor: "#e9e9e9", flex: 1 }}>
                         <CollectionHome
+                            id={item.id}
                             name={item.name}
                             price={item.price}
                             oldprice={item.oldprice}

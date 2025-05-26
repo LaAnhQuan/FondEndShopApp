@@ -5,6 +5,8 @@ import demo from '@/assets/demo.jpg';
 import { APP_COLOR } from '@/utils/constant';
 import StickyHeader from './sticky.header';
 import { useRef, useState } from 'react';
+import { getURLBaseBackEnd } from '@/utils/api';
+import Carousel from 'react-native-reanimated-carousel';
 
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
@@ -12,11 +14,15 @@ const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
 const HEADER_HEIGHT = 120;
-const IMAGE_HEIGHT = 220;
+const IMAGE_HEIGHT = 400;
 const INFO_HEIGHT = 250;
 const SLIDE_MENU_HEIGHT = 50;
 
-const RMain = () => {
+interface IProps {
+    product: IProductId | null
+}
+const RMain = (props: IProps) => {
+    const { product } = props;
     const scrollY = useSharedValue(0);
 
     const sectionListRef = useRef<SectionList>(null);
@@ -124,80 +130,80 @@ const RMain = () => {
         };
     });
 
-    const DATA = [
-        {
-            title: 'Main dishes',
-            data: ['Pizza', 'Burger', 'Risotto'],
-            index: 0,
-            key: 'menu-0'
-        },
-        {
-            title: 'Sides',
-            data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-            index: 1,
-            key: 'menu-1'
-        },
-        {
-            title: 'Drinks',
-            data: ['Water', 'Coke', 'Beer'],
-            index: 2,
-            key: 'menu-2'
-        },
-        {
-            title: 'Desserts',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 3,
-            key: 'menu-3'
-        },
-        {
-            title: 'Desserts1',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 4,
-            key: 'menu-4'
-        },
-        {
-            title: 'Desserts2',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 5,
-            key: 'menu-5'
-        },
-        {
-            title: 'Desserts3',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 6,
-            key: 'menu-6'
-        },
-        {
-            title: 'Desserts4',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 7,
-            key: 'menu-7'
-        },
-        {
-            title: 'Desserts5',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 8,
-            key: 'menu-8'
-        },
-        {
-            title: 'Desserts 9',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 9,
-            key: 'menu-9'
-        },
-        {
-            title: 'Desserts10',
-            data: ['Cheese Cake', 'Ice Cream'],
-            index: 10,
-            key: 'menu-10'
-        },
-        {
-            title: 'Desserts11',
-            data: ['Cheese Cake', 'Ice Cream', 'Cheese Cake', 'Ice Cream'],
-            index: 11,
-            key: 'menu-11'
-        },
-    ];
+    // const DATA = [
+    //     {
+    //         title: 'Main dishes',
+    //         data: ['Pizza', 'Burger', 'Risotto'],
+    //         index: 0,
+    //         key: 'menu-0'
+    //     },
+    //     {
+    //         title: 'Sides',
+    //         data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+    //         index: 1,
+    //         key: 'menu-1'
+    //     },
+    //     {
+    //         title: 'Drinks',
+    //         data: ['Water', 'Coke', 'Beer'],
+    //         index: 2,
+    //         key: 'menu-2'
+    //     },
+    //     {
+    //         title: 'Desserts',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 3,
+    //         key: 'menu-3'
+    //     },
+    //     {
+    //         title: 'Desserts1',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 4,
+    //         key: 'menu-4'
+    //     },
+    //     {
+    //         title: 'Desserts2',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 5,
+    //         key: 'menu-5'
+    //     },
+    //     {
+    //         title: 'Desserts3',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 6,
+    //         key: 'menu-6'
+    //     },
+    //     {
+    //         title: 'Desserts4',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 7,
+    //         key: 'menu-7'
+    //     },
+    //     {
+    //         title: 'Desserts5',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 8,
+    //         key: 'menu-8'
+    //     },
+    //     {
+    //         title: 'Desserts 9',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 9,
+    //         key: 'menu-9'
+    //     },
+    //     {
+    //         title: 'Desserts10',
+    //         data: ['Cheese Cake', 'Ice Cream'],
+    //         index: 10,
+    //         key: 'menu-10'
+    //     },
+    //     {
+    //         title: 'Desserts11',
+    //         data: ['Cheese Cake', 'Ice Cream', 'Cheese Cake', 'Ice Cream'],
+    //         index: 11,
+    //         key: 'menu-11'
+    //     },
+    // ];
 
 
     const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
@@ -220,20 +226,40 @@ const RMain = () => {
             />
 
             {/*  Image */}
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <Image
                     source={demo}
                     style={styles.headerImage}
+                />
+            </View> */}
+
+            <View style={styles.header}>
+                <Carousel
+                    loop
+                    width={sWidth}
+                    height={IMAGE_HEIGHT}
+                    autoPlay={false}
+                    data={product?.product_images || []}
+                    scrollAnimationDuration={500}
+                    renderItem={({ item }) => (
+                        <Image
+                            source={{ uri: `${getURLBaseBackEnd()}/images/${item}` }}
+                            style={styles.headerImage}
+                        />
+                    )}
                 />
             </View>
 
             {/* Info */}
             <Animated.View style={[animatedInfoStyle]}>
-                <Info infoHeight={INFO_HEIGHT} />
+                <Info
+                    product={product}
+                    infoHeight={INFO_HEIGHT}
+                />
             </Animated.View>
 
             {/* Sticky Menu */}
-            <Animated.FlatList
+            {/* <Animated.FlatList
                 ref={flatListRef}
                 horizontal
                 data={DATA}
@@ -265,10 +291,10 @@ const RMain = () => {
                 )}
                 showsHorizontalScrollIndicator={false}
                 style={[animatedMenuStyle]}
-            />
+            /> */}
 
             {/* Scrollable Content */}
-            <AnimatedSectionList
+            {/* <AnimatedSectionList
                 ref={sectionListRef as any}
                 style={{ zIndex: 1 }}
                 onScroll={onScroll}
@@ -306,7 +332,9 @@ const RMain = () => {
                 }}
                 onViewableItemsChanged={onViewableItemsChanged}
                 onMomentumScrollEnd={() => (blockUpdateRef.current = false)}
-            />
+            /> */}
+
+
         </View>
     );
 };
@@ -337,3 +365,4 @@ const styles = StyleSheet.create({
 });
 
 export default RMain;
+

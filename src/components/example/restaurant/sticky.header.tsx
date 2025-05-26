@@ -17,8 +17,8 @@ interface IProps {
 
     animatedBackgroundStyle: any;
     animatedArrowColorStyle: any;
-    animatedStickyHeaderStyle: any;
-    animatedHeartIconStyle: any;
+    animatedStickyHeaderStyle?: any;
+    animatedHeartIconStyle?: any;
 }
 
 const StickyHeader = (props: IProps) => {

@@ -42,7 +42,41 @@ declare global {
         total_sold: number,
         rating: number,
         brand_id: number,
-        category_id: number
+        category_id: number,
+
     }
+
+    interface IProductId {
+        id: number,
+        name: string,
+        price: number,
+        oldprice: number,
+        description: string
+        rating: number,
+        total_ratings: number,
+        total_sold: number,
+        brand_id: number,
+        category_id: number,
+        image: any,
+        updated_at: Date,
+        product_images: IImage[],
+        attributes: IAttributes[],
+        variants: IVariants[]
+
+    }
+    interface IImage {
+        image: any
+    }
+
+    interface IAttributes {
+        id: number,
+        name: string,
+        value: string
+    }
+
+    interface IVariants {
+
+    }
+
 }
 

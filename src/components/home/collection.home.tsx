@@ -8,6 +8,7 @@ import React from "react";
 import { router } from "expo-router";
 
 interface IProps {
+    id: number
     image?: any | null;
     name?: string | null;
     price?: number | null;
@@ -23,10 +24,14 @@ const ITEM_HEIGHT = ITEM_WIDTH + 80;
 const IMAGE_HEIGHT = (ITEM_HEIGHT * 2) / 3; // Chiều cao ảnh chiếm 2/3
 
 const CollectionHome = React.memo((props: IProps) => {
-    const { name, image, price, oldprice, total_sold, rating } = props;
+    const { name, image, price, oldprice, total_sold, rating, id } = props;
 
     return (
-        <Pressable onPress={() => router.navigate("/product")}>
+        <Pressable
+            onPress={() => router.navigate({
+                pathname: "/product/[id]",
+                params: { id: id }
+            })}>
             <View style={styles.container}>
                 <View style={styles.image}>
                     <Image source={{ uri: `${getURLBaseBackEnd()}/images/${image}` }} style={styles.img} />

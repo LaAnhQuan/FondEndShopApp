@@ -67,5 +67,10 @@ export const printAsyncStorage = () => {
     });
 };
 
+export const getProductByIdAPI = (id: number) => {
+    const url = `/products/${id}`;
+    return axios.get<IBackendRes<IProductId>>(url);
+}
+
 
 
