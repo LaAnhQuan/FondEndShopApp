@@ -130,80 +130,80 @@ const RMain = (props: IProps) => {
         };
     });
 
-    // const DATA = [
-    //     {
-    //         title: 'Main dishes',
-    //         data: ['Pizza', 'Burger', 'Risotto'],
-    //         index: 0,
-    //         key: 'menu-0'
-    //     },
-    //     {
-    //         title: 'Sides',
-    //         data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-    //         index: 1,
-    //         key: 'menu-1'
-    //     },
-    //     {
-    //         title: 'Drinks',
-    //         data: ['Water', 'Coke', 'Beer'],
-    //         index: 2,
-    //         key: 'menu-2'
-    //     },
-    //     {
-    //         title: 'Desserts',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 3,
-    //         key: 'menu-3'
-    //     },
-    //     {
-    //         title: 'Desserts1',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 4,
-    //         key: 'menu-4'
-    //     },
-    //     {
-    //         title: 'Desserts2',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 5,
-    //         key: 'menu-5'
-    //     },
-    //     {
-    //         title: 'Desserts3',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 6,
-    //         key: 'menu-6'
-    //     },
-    //     {
-    //         title: 'Desserts4',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 7,
-    //         key: 'menu-7'
-    //     },
-    //     {
-    //         title: 'Desserts5',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 8,
-    //         key: 'menu-8'
-    //     },
-    //     {
-    //         title: 'Desserts 9',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 9,
-    //         key: 'menu-9'
-    //     },
-    //     {
-    //         title: 'Desserts10',
-    //         data: ['Cheese Cake', 'Ice Cream'],
-    //         index: 10,
-    //         key: 'menu-10'
-    //     },
-    //     {
-    //         title: 'Desserts11',
-    //         data: ['Cheese Cake', 'Ice Cream', 'Cheese Cake', 'Ice Cream'],
-    //         index: 11,
-    //         key: 'menu-11'
-    //     },
-    // ];
+    const DATA = [
+        {
+            title: 'Main dishes',
+            data: ['Pizza', 'Burger', 'Risotto'],
+            index: 0,
+            key: 'menu-0'
+        },
+        {
+            title: 'Sides',
+            data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+            index: 1,
+            key: 'menu-1'
+        },
+        {
+            title: 'Drinks',
+            data: ['Water', 'Coke', 'Beer'],
+            index: 2,
+            key: 'menu-2'
+        },
+        {
+            title: 'Desserts',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 3,
+            key: 'menu-3'
+        },
+        {
+            title: 'Desserts1',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 4,
+            key: 'menu-4'
+        },
+        {
+            title: 'Desserts2',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 5,
+            key: 'menu-5'
+        },
+        {
+            title: 'Desserts3',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 6,
+            key: 'menu-6'
+        },
+        {
+            title: 'Desserts4',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 7,
+            key: 'menu-7'
+        },
+        {
+            title: 'Desserts5',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 8,
+            key: 'menu-8'
+        },
+        {
+            title: 'Desserts 9',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 9,
+            key: 'menu-9'
+        },
+        {
+            title: 'Desserts10',
+            data: ['Cheese Cake', 'Ice Cream'],
+            index: 10,
+            key: 'menu-10'
+        },
+        {
+            title: 'Desserts11',
+            data: ['Cheese Cake', 'Ice Cream', 'Cheese Cake', 'Ice Cream'],
+            index: 11,
+            key: 'menu-11'
+        },
+    ];
 
 
     const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
@@ -294,7 +294,7 @@ const RMain = (props: IProps) => {
             /> */}
 
             {/* Scrollable Content */}
-            {/* <AnimatedSectionList
+            <AnimatedSectionList
                 ref={sectionListRef as any}
                 style={{ zIndex: 1 }}
                 onScroll={onScroll}
@@ -332,7 +332,7 @@ const RMain = (props: IProps) => {
                 }}
                 onViewableItemsChanged={onViewableItemsChanged}
                 onMomentumScrollEnd={() => (blockUpdateRef.current = false)}
-            /> */}
+            />
 
 
         </View>
