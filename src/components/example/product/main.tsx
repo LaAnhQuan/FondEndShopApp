@@ -6,6 +6,7 @@ import StickyHeader from './sticky.header';
 import { useState } from 'react';
 import { getURLBaseBackEnd } from '@/utils/api';
 import Carousel from 'react-native-reanimated-carousel';
+import StickyFooter from './order/sticky.footer';
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
@@ -152,7 +153,10 @@ const RMain = (props: IProps) => {
                     infoHeight={infoHeight}
                     onHeightMeasured={setInfoHeight}
                 />
+                <View style={{ height: 30 }} />
+
             </Animated.ScrollView>
+            <StickyFooter />
         </View>
 
     );
