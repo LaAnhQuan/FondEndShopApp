@@ -4,6 +4,7 @@ import { APP_COLOR } from "@/utils/constant";
 import { currencyFormatter } from "@/utils/api";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { router } from "expo-router";
 
 const StickyFooter = () => {
 
@@ -49,19 +50,28 @@ const StickyFooter = () => {
                 alignItems: "center",
                 backgroundColor: APP_COLOR.ORANGE
             }}>
-                <Text style={{ color: "white", fontSize: 15 }}
-                    onPress={() => alert("giao hang")}
-                >
-                    Mua với voucher
-                </Text>
-                <Text style={{
-                    color: "white",
-                    fontSize: 18
-                }}>
-                    {currencyFormatter(125000)}
-                </Text>
-            </View>
+                <Pressable
 
+                    onPress={() => { router.navigate("/product/create.modal") }}
+                >
+                    <View style={{
+
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                    }}>
+                        <Text style={{ color: "white", fontSize: 15 }}>
+                            Mua với voucher
+                        </Text>
+                        <Text style={{
+                            color: "white",
+                            fontSize: 16
+                        }}>
+                            {currencyFormatter(125000)}
+                        </Text>
+                    </View>
+                </Pressable>
+            </View>
         </View>
     )
 }
