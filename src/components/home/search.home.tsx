@@ -2,9 +2,11 @@ import { APP_COLOR } from "@/utils/constant";
 import { StyleSheet, Text, View } from "react-native";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     container: {
+        width: "75%",
         backgroundColor: APP_COLOR.GREY,
         gap: 5,
         flexDirection: "row",
@@ -28,26 +30,42 @@ const styles = StyleSheet.create({
         color: "#707070",
         fontSize: 15,
         // marginLeft: 5, // Optional, for spacing between icon and text
+    },
+    body: {
+        flexDirection: "row",
+        gap: 5,
+        alignItems: "center"
     }
 });
 
 const SearchHome = () => {
     return (
-        <View style={styles.container}>
-            <View style={styles.leftSection}>
-                <EvilIcons
-                    name="search"
-                    size={30}
-                    color="black"
-                />
-                <Text style={styles.text}>Deal Hot Hôm Nay Từ 0đ...</Text>
+        <View style={styles.body}>
+            <View style={styles.container}>
+                <View style={styles.leftSection}>
+                    <EvilIcons
+                        name="search"
+                        size={30}
+                        color={APP_COLOR.ORANGE}
+                    />
+                    <Text style={styles.text}>Deal Hot Hôm Nay Từ 0đ...</Text>
+                </View>
+                <View style={styles.rightSection}>
+                    <Feather
+                        name="camera"
+                        size={23}
+                        color={APP_COLOR.ORANGE}
+                    />
+                </View>
             </View>
-            <View style={styles.rightSection}>
+            <View style={{ flexDirection: "row", alignSelf: "center", gap: 15 }}>
                 <Feather
-                    name="camera"
+                    name="shopping-cart"
                     size={25}
-                    color="black"
+                    color={APP_COLOR.ORANGE}
                 />
+                <FontAwesome name="comments-o" size={24} color={APP_COLOR.ORANGE} />
+
             </View>
         </View>
     );

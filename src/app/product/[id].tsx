@@ -1,4 +1,4 @@
-import RMain from "@/components/example/restaurant/main"
+import RMain from "@/components/example/product/main"
 import { getProductByIdAPI } from "@/utils/api";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";

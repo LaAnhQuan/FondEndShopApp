@@ -2,12 +2,14 @@ import { APP_COLOR } from "@/utils/constant";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, TextInput, View } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Feather from '@expo/vector-icons/Feather';
 import Animated from "react-native-reanimated";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons)
+const AnimatedFeather = Animated.createAnimatedComponent(Feather)
+const AnimatedMaterialCommunityIcons = Animated.createAnimatedComponent(MaterialCommunityIcons)
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
 
 })
@@ -71,6 +73,60 @@ const StickyHeader = (props: IProps) => {
                         }}
                     />
                 </Animated.View>
+                <Pressable
+                    style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, { alignSelf: "flex-start" }])}
+                    onPress={() => alert("me")}>
+                    <Animated.View
+                        style={[animatedBackgroundStyle, {
+                            height: 30,
+                            width: 30,
+                            borderRadius: 30 / 2,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }]}
+                    >
+                        <AnimatedMaterialCommunityIcons
+                            name="share" size={24}
+                            style={animatedArrowColorStyle}
+                        />
+                    </Animated.View>
+                </Pressable>
+                <Pressable
+                    style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, { alignSelf: "flex-start" }])}
+                    onPress={() => alert("me")}>
+                    <Animated.View
+                        style={[animatedBackgroundStyle, {
+                            height: 30,
+                            width: 30,
+                            borderRadius: 30 / 2,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }]}
+                    >
+                        <AnimatedFeather
+                            name="shopping-cart" size={24}
+                            style={animatedArrowColorStyle}
+                        />
+                    </Animated.View>
+                </Pressable>
+                <Pressable
+                    style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, { alignSelf: "flex-start" }])}
+                    onPress={() => alert("me")}>
+                    <Animated.View
+                        style={[animatedBackgroundStyle, {
+                            height: 30,
+                            width: 30,
+                            borderRadius: 30 / 2,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }]}
+                    >
+                        <AnimatedMaterialCommunityIcons
+                            name="dots-vertical" size={24}
+                            style={animatedArrowColorStyle}
+                        />
+                    </Animated.View>
+                </Pressable>
 
             </View>
             {/* background */}
