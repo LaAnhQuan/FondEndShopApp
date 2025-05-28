@@ -1,17 +1,15 @@
 import CustomFlatList from "@/components/CustomFlatList/CustomFlatList";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
-import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
-import { currencyFormatter, getURLBaseBackEnd, productsAPI } from "@/utils/api";
+import { productsAPI } from "@/utils/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CollectionHome from "@/components/home/collection.home";
+import ContentLoader, { Rect } from "react-content-loader/native"
 
-const { width } = Dimensions.get("window");
+const { height: sHeight, width: sWidth } = Dimensions.get('window');
 const SPACING = 6;
-const ITEM_WIDTH = (width - SPACING * 3) / 2;
-const ITEM_HEIGHT = ITEM_WIDTH + 80;
-
 
 
 const HomeTab = () => {
@@ -21,6 +19,7 @@ const HomeTab = () => {
     React.useEffect(() => {
         // Fetch image URLs from the backend
         const fetchProduct = async () => {
+
             try {
                 const res = await productsAPI();  // Thay thế URL backend của bạn tại đây
                 if (res.data) {

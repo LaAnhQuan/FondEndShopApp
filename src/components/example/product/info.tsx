@@ -39,8 +39,7 @@ const Info = (props: IProps) => {
     const onLayout = (event: LayoutChangeEvent) => {
         const { height } = event.nativeEvent.layout;
         if (onHeightMeasured && height > 0) {
-            onHeightMeasured(height); // Gửi chiều cao lên RMain
-            console.log('Chiều cao của Info:', height); // Debug
+            onHeightMeasured(height);
         }
     };
 

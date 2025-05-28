@@ -69,7 +69,9 @@ export const printAsyncStorage = () => {
 
 export const getProductByIdAPI = (id: number) => {
     const url = `/products/${id}`;
-    return axios.get<IBackendRes<IProductId>>(url);
+    return axios.get<IBackendRes<IProductId>>(url, {
+        headers: { delay: 1500 }
+    });
 }
 
 
