@@ -1,24 +1,53 @@
 import { APP_COLOR } from '@/utils/constant';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { View, Text } from "react-native";
+import { View, Text, LayoutChangeEvent, Pressable } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { currencyFormatter } from '@/utils/api';
+import { useState } from 'react';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 interface IProps {
     infoHeight: number;
     product: IProductId | null;
+    onHeightMeasured?: (height: number) => void; // Callback để gửi chiều cao lên
 }
+
 const Info = (props: IProps) => {
-    const { infoHeight, product } = props;
+    const { infoHeight, product, onHeightMeasured } = props;
+
+    // Trạng thái hiển thị/ẩn product?.attributes
+    const [showDetails, setShowDetails] = useState(false);
+
+    // Animation cho phần product?.attributes
+    const animationValue = useSharedValue(0); // Giá trị animation: 0 (ẩn) -> 1 (hiển thị)
+
+    // Animated style cho hiệu ứng fade-in/out và slide-in/out
+    const animatedDetailsStyle = useAnimatedStyle(() => {
+        const opacity = withTiming(showDetails ? 1 : 0, { duration: 300 });
+        const translateY = withTiming(showDetails ? 0 : -10, { duration: 300 }); // Slide nhẹ
+        const height = showDetails ? 'auto' : 0; // Chiều cao 0 khi ẩn, auto khi hiện
+        return {
+            opacity,
+            transform: [{ translateY }],
+            height, // Điều chỉnh chiều cao dựa trên trạng thái
+            overflow: 'hidden', // Ngăn nội dung tràn ra ngoài khi ẩn
+        };
+    });
+
+    // Đo chiều cao của Info
+    const onLayout = (event: LayoutChangeEvent) => {
+        const { height } = event.nativeEvent.layout;
+        if (onHeightMeasured && height > 0) {
+            onHeightMeasured(height); // Gửi chiều cao lên RMain
+            console.log('Chiều cao của Info:', height); // Debug
+        }
+    };
 
     return (
-        <View style={{
-            height: infoHeight,
-            backgroundColor: "#fff"
-        }}>
+        <View style={{ backgroundColor: "#fff" }} onLayout={onLayout}>
             <View style={{ height: 60, margin: 10 }}>
-                <Text style={{ lineHeight: 30, }} numberOfLines={2} ellipsizeMode='tail'>
+                <Text style={{ lineHeight: 30 }} numberOfLines={2} ellipsizeMode='tail'>
                     <View>
                         <Text style={{ color: "white", backgroundColor: APP_COLOR.ORANGE, padding: 0, margin: 0 }}>{`  Yêu thích  `}</Text>
                     </View>
@@ -27,9 +56,7 @@ const Info = (props: IProps) => {
                     <Text>{` `}</Text>
                     <Text style={{ fontSize: 20, fontWeight: "600" }}>{product?.name}</Text>
                 </Text>
-                {/* <Text style={{ color: APP_COLOR.ORANGE, fontWeight: "bold", fontSize: 20 }}>{currencyFormatter(product?.price)}</Text> */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                    {/* Giá hiện tại */}
                     <Text style={{
                         color: APP_COLOR.ORANGE,
                         fontWeight: 'bold',
@@ -38,8 +65,6 @@ const Info = (props: IProps) => {
                     }}>
                         {currencyFormatter(product?.price)}
                     </Text>
-
-                    {/* Giá gốc bị gạch ngang */}
                     <Text style={{
                         color: '#888',
                         fontSize: 16,
@@ -61,10 +86,6 @@ const Info = (props: IProps) => {
                     </View>
                     <Text>5.0 (999+ Bình Luận) </Text>
                 </View>
-
-                {/* nút like/dislike chuyển qua component sticky.header, do zIndex component nào bé hơn => không pressable được */}
-                {/* <MaterialIcons name="favorite" size={20} color="black" />
-                <MaterialIcons onPress={() => alert("like")} name="favorite-outline" size={20} color={APP_COLOR.GREY} /> */}
             </View>
             <View style={{ height: 10, backgroundColor: "#e9e9e9" }}></View>
 
@@ -82,13 +103,14 @@ const Info = (props: IProps) => {
                             <AntDesign name="rocket1" size={25} color={APP_COLOR.ORANGE} />
                         </View>
                         <View>
-                            <Text >Giao hàng tiêu chuẩn</Text>
+                            <Text>Giao hàng tiêu chuẩn</Text>
                         </View>
                     </View>
                     <View style={{ gap: 5 }}>
                         <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                             <AntDesign name="gift" size={12} color={APP_COLOR.ORANGE} />
-                            <Text>Giảm 20% tối đa 55k cho đơn từ 200k</Text></View>
+                            <Text>Giảm 20% tối đa 55k cho đơn từ 200k</Text>
+                        </View>
                         <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                             <AntDesign name="gift" size={12} color={APP_COLOR.ORANGE} />
                             <Text>Mã giảm 25% trên sản phẩm</Text>
@@ -104,32 +126,46 @@ const Info = (props: IProps) => {
                     </View>
                 </View>
                 <View style={{ height: 10, backgroundColor: "#e9e9e9" }}></View>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 5 }}>
-                    <Text >
-                        Chi Tiết sản phẩm
-                    </Text>
-                    <Text>Xem chi tiết</Text>
-                </View>
+
+                {/* Nút "Xem chi tiết" */}
+                <Pressable
+                    onPress={() => setShowDetails(!showDetails)}
+                    style={{ flexDirection: "row", justifyContent: "space-between", padding: 5 }}
+                >
+                    <Text>Chi Tiết sản phẩm</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        <Text style={{ color: APP_COLOR.ORANGE }}>{showDetails ? "Ẩn chi tiết" : "Xem chi tiết"}</Text>
+                        <AntDesign
+                            name={showDetails ? "up" : "down"}
+                            size={16}
+                            color={APP_COLOR.ORANGE}
+                            style={{ marginLeft: 5 }}
+                        />
+                    </View>
+                </Pressable>
+
+                {/* Phần product?.attributes với animation */}
+                <Animated.View style={[animatedDetailsStyle, { marginHorizontal: 10, marginVertical: 0 }]}>
+                    {product?.attributes && product.attributes.length > 0 && (
+                        <View>
+                            {product.attributes.map((attr, index) => (
+                                <View key={attr.id} style={{ flexDirection: 'row', marginBottom: 5 }}>
+                                    <Text style={{ fontWeight: 'bold', marginRight: 10 }}>{attr.name}: </Text>
+                                    <Text>{attr.value}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    )}
+                </Animated.View>
 
                 <View style={{ height: 1, backgroundColor: "#e9e9e9" }}></View>
 
                 <Text style={{ padding: 10 }}>Mô tả sản phẩm</Text>
                 <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
-                <Text style={{ padding: 10 }}>{product?.description}</Text>
 
             </View>
-
-
-
         </View>
-    )
-}
+    );
+};
 
 export default Info;
