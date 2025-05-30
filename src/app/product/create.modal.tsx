@@ -8,7 +8,7 @@ import React, { useState } from "react";
 
 const CreateModalPage = () => {
 
-
+    const [selectedVariant, setSelectedVariant] = useState<IVariants | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
     const title = "Mua ngay"
     const handlePressItem = (action: "MINUS" | "PLUS") => {
@@ -16,6 +16,8 @@ const CreateModalPage = () => {
         const total = action === "MINUS" ? -1 : 1;
         setQuantity((pevQuantity: number) => pevQuantity + total)
     };
+
+    console.log("check selectedVariant", selectedVariant)
 
     const handleAddCart = () => {
         alert("me")
@@ -27,6 +29,7 @@ const CreateModalPage = () => {
                 handlePressItem={handlePressItem}
                 title={title}
                 handleAddCart={handleAddCart}
+                onVariantChange={setSelectedVariant}
             />
         </>
     );

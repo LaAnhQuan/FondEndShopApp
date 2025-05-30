@@ -5,7 +5,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useCurrentApp } from "@/context/app.context";
 import { router } from "expo-router";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 interface IProps {
@@ -14,11 +14,11 @@ interface IProps {
     quantity: number,
     title: string,
     handleAddCart: any
-
+    onVariantChange: any
 }
 
 const ItemSingle = (props: IProps) => {
-    const { quantity, handlePressItem, title, handleAddCart } = props
+    const { quantity, handlePressItem, title, handleAddCart, onVariantChange } = props
     const showMinus = true;
     const { product } = useCurrentApp();
     const variants = product?.variants || [];
@@ -68,8 +68,9 @@ const ItemSingle = (props: IProps) => {
                 )
             );
 
-    console.log("check ", filteredVariant)
-
+    useEffect(() => {
+        onVariantChange(filteredVariant);
+    }, [filteredVariant]);
 
     return (
         <Animated.View
