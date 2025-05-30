@@ -60,15 +60,15 @@ const StickyFooter = () => {
                         alignItems: "center",
 
                     }}>
-                        <Text style={{ color: "white", fontSize: 15 }}>
-                            Mua với voucher
+                        <Text style={{ color: "white", fontSize: 16 }}>
+                            Mua ngay
                         </Text>
-                        <Text style={{
+                        {/* <Text style={{
                             color: "white",
                             fontSize: 16
                         }}>
                             {currencyFormatter(125000)}
-                        </Text>
+                        </Text> */}
                     </View>
                 </Pressable>
             </View>

@@ -3,10 +3,11 @@ import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
 import { View, StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
-import { productsAPI } from "@/utils/api";
+import { createCartAPI, getCartByIdAPI, productsAPI } from "@/utils/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CollectionHome from "@/components/home/collection.home";
 import ContentLoader, { Rect } from "react-content-loader/native"
+import { useCurrentApp } from "@/context/app.context";
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 const SPACING = 6;
@@ -15,6 +16,8 @@ const SPACING = 6;
 const HomeTab = () => {
 
     const [product, setProduct] = useState<IProduct[]>([]);
+    const { cart, setCart, appState } = useCurrentApp();
+    const userId = appState?.user?.id;
 
     React.useEffect(() => {
         // Fetch image URLs from the backend
@@ -35,6 +38,33 @@ const HomeTab = () => {
         };
 
         fetchProduct();
+    }, [appState?.user.id]);
+
+    useEffect(() => {
+        const checkAndCreateCart = async () => {
+            if (!userId) return;
+
+            try {
+                const res = await getCartByIdAPI(userId);
+                if (res.data) {
+                    // Giỏ hàng đã tồn tại
+                    console.log("hihi", res.data)
+                    setCart(res.data);
+                } else {
+                    // Chưa có -> tạo mới
+                    console.log("haha", userId)
+                    const createRes = await createCartAPI(userId);
+                    if (createRes.data) {
+                        setCart(createRes.data);
+                    }
+                    console.log(createRes.data)
+                }
+            } catch (err) {
+                console.error("Lỗi khi kiểm tra/tạo giỏ hàng:", err);
+            }
+        };
+
+        checkAndCreateCart();
     }, []);
 
     return (

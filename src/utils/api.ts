@@ -74,5 +74,13 @@ export const getProductByIdAPI = (id: number) => {
     });
 }
 
+export const createCartAPI = (user_id: number) => {
+    const url = `/carts`;
+    return axios.post<IBackendRes<ICart>>(url, { user_id });
+}
 
+export const getCartByIdAPI = (id: number) => {
+    const url = `/carts/${id}`;
+    return axios.get<IBackendRes<ICartDetail>>(url);
+}
 

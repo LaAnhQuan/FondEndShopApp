@@ -4,13 +4,14 @@ import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Dimensions, Text, View } from "react-native"
 import ContentLoader, { Rect } from "react-content-loader/native"
+import { useCurrentApp } from "@/context/app.context";
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
 
 const ProductPage = () => {
     const { id } = useLocalSearchParams();
-    const [product, setProduct] = useState<IProductId | null>(null)
     const [loading, setLoading] = useState(true);
+    const { product, setProduct } = useCurrentApp();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -27,9 +28,7 @@ const ProductPage = () => {
     return (
         <View style={{ flex: 1 }}>
             {loading === false ?
-                <RMain
-                    product={product}
-                />
+                <RMain />
                 :
                 <ContentLoader
                     speed={2}

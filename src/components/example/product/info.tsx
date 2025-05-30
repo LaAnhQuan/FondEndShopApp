@@ -46,7 +46,7 @@ const Info = (props: IProps) => {
     return (
         <View style={{ backgroundColor: "#fff" }} onLayout={onLayout}>
             <View style={{ height: 60, margin: 10 }}>
-                <Text style={{ lineHeight: 30 }} numberOfLines={2} ellipsizeMode='tail'>
+                <Text style={{ lineHeight: 30 }} numberOfLines={1} ellipsizeMode='tail'>
                     <View>
                         <Text style={{ color: "white", backgroundColor: APP_COLOR.ORANGE, padding: 0, margin: 0 }}>{`  Yêu thích  `}</Text>
                     </View>

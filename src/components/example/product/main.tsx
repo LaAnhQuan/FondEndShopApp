@@ -7,18 +7,17 @@ import { useState } from 'react';
 import { getURLBaseBackEnd } from '@/utils/api';
 import Carousel from 'react-native-reanimated-carousel';
 import StickyFooter from './order/sticky.footer';
+import { useCurrentApp } from '@/context/app.context';
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
 const HEADER_HEIGHT = 120;
 const IMAGE_HEIGHT = 400;
 
-interface IProps {
-    product: IProductId | null;
-}
 
-const RMain = (props: IProps) => {
-    const { product } = props;
+
+const RMain = () => {
+    const { product, setProduct } = useCurrentApp();
     const scrollY = useSharedValue(0);
     const [infoHeight, setInfoHeight] = useState(0); // Ban đầu là 0, sẽ được cập nhật từ Info
     const totalHeight = IMAGE_HEIGHT + infoHeight; // Tổng chiều cao của Carousel + Info

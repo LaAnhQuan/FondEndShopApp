@@ -75,7 +75,48 @@ declare global {
     }
 
     interface IVariants {
+        id: string,
+        price: number,
+        old_price: number,
+        stock: number,
+        sku: string,
+        values: IValueVariant[]
+    }
 
+    interface IValueVariant {
+        id: number,
+        name: string,
+        value: string,
+        image: any
+    }
+
+    interface ICart {
+        id: number,
+        user_id: number,
+    }
+
+    interface ICartDetail {
+        id: number,
+        user_id: number,
+        cart_items: ICartItem[]
+    }
+    interface ICartItem {
+        id: number,
+        cart_id: number,
+        product_variant_id: number,
+        product_id: number | null,
+        quantity: number,
+        product_variant_values: IProductVariantValue
+    }
+
+    interface IProductVariantValue {
+        id: number,
+        product_id: number,
+        price: number,
+        old_price: null | number,
+        stock: number | null,
+        sku: string | null,
+        product: IProduct
     }
 
 }

@@ -1,38 +1,19 @@
-
-import { Link, router } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { useCurrentApp } from "@/context/app.context";
+import { APP_COLOR } from "@/utils/constant";
+import { router } from "expo-router";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
+import ItemSingle from "@/components/example/product/order/item.singer";
+import React, { useState } from "react";
 
 const CreateModalPage = () => {
+
+
     return (
-        <Animated.View
-            entering={FadeIn}
-            style={{
-                flex: 1,
-                justifyContent: 'flex-end',
-                backgroundColor: '#00000040',
-            }}
-        >
-
-            <Pressable
-                onPress={() => router.back()}
-                style={StyleSheet.absoluteFill} />
-
-            <Animated.View
-                entering={SlideInDown}
-                style={{
-                    height: '80%',
-                    width: "100%",
-                    backgroundColor: 'white',
-                }}
-            >
-                <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>Modal Screen</Text>
-                <Link href="/">
-                    <Text>← Go back</Text>
-                </Link>
-            </Animated.View>
-        </Animated.View>
-    )
-}
+        <>
+            <ItemSingle />
+        </>
+    );
+};
 
 export default CreateModalPage;

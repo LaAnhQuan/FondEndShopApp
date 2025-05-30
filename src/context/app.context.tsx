@@ -5,6 +5,10 @@ interface AppContextType {
     setTheme: (v: string) => void;
     appState: ILogin | null;
     setAppState: (v: any) => void;
+    product: IProductId | null;
+    setProduct: (v: any) => void;
+    cart: ICart | null;
+    setCart: (v: any) => void;
 }
 const AppContext = createContext<AppContextType | null>(null);
 
@@ -27,9 +31,15 @@ export const useCurrentApp = () => {
 const AppProvider = (props: IProps) => {
     const [theme, setTheme] = useState<string>("eric-light");
     const [appState, setAppState] = useState<ILogin | null>(null);
-
+    const [product, setProduct] = useState<IProductId | null>(null);
+    const [cart, setCart] = useState<ICart | null>(null);
     return (
-        <AppContext.Provider value={{ theme, setTheme, appState, setAppState }}>
+        <AppContext.Provider value={{
+            theme, setTheme,
+            product, setProduct,
+            appState, setAppState,
+            cart, setCart
+        }}>
             {props.children}
         </AppContext.Provider>
     )
