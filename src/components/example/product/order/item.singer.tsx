@@ -13,11 +13,12 @@ interface IProps {
     handlePressItem: any;
     quantity: number,
     title: string,
+    handleAddCart: any
 
 }
 
 const ItemSingle = (props: IProps) => {
-    const { quantity, handlePressItem, title } = props
+    const { quantity, handlePressItem, title, handleAddCart } = props
     const showMinus = true;
     const { product } = useCurrentApp();
     const variants = product?.variants || [];
@@ -57,12 +58,17 @@ const ItemSingle = (props: IProps) => {
     };
 
 
-    const filteredVariants = variants.filter((variant) =>
-        Object.entries(selectedAttributes).every(([key, val]) => {
-            if (!val) return true;
-            return variant.values.some((v) => v.name === key && v.value === val);
-        })
-    );
+    const filteredVariant =
+        Object.keys(selectedAttributes).length < attributeKeys.length ||
+            Object.values(selectedAttributes).some((val) => !val)
+            ? null
+            : variants.find((variant) =>
+                Object.entries(selectedAttributes).every(([key, val]) =>
+                    variant.values.some((v) => v.name === key && v.value === val)
+                )
+            );
+
+    console.log("check ", filteredVariant)
 
 
     return (
@@ -104,11 +110,23 @@ const ItemSingle = (props: IProps) => {
 
                         <View style={{ flex: 1, gap: 10, justifyContent: "flex-end" }}>
                             <View><Text>{product?.name}</Text></View>
-                            <View>
-                                <Text style={{ color: APP_COLOR.ORANGE, fontSize: 18 }}>
-                                    {currencyFormatter(product?.price)}
-                                </Text>
-                            </View>
+                            {filteredVariant ?
+
+                                <View>
+                                    <Text style={{ color: APP_COLOR.ORANGE, fontSize: 18 }}>
+                                        {currencyFormatter(filteredVariant?.price)}
+                                    </Text>
+                                    <Text style={{ fontSize: 16 }}>
+                                        Kho : {filteredVariant.stock}
+                                    </Text>
+                                </View>
+                                :
+                                <View>
+                                    <Text style={{ color: APP_COLOR.ORANGE, fontSize: 18 }}>
+                                        {currencyFormatter(product?.price)}
+                                    </Text>
+                                </View>
+                            }
                         </View>
 
                         <View
@@ -203,7 +221,7 @@ const ItemSingle = (props: IProps) => {
                                             opacity: pressed === true ? 0.5 : 1,
                                             alignSelf: "flex-start", //fit-content
                                         })}
-                                        onPress={() => handlePressItem(product, "MINUS")}
+                                        onPress={() => handlePressItem("MINUS")}
                                     >
                                         <AntDesign name="minussquareo"
                                             size={24} color={APP_COLOR.ORANGE}
@@ -222,7 +240,7 @@ const ItemSingle = (props: IProps) => {
                                     opacity: pressed === true ? 0.5 : 1,
                                     alignSelf: "flex-start", //fit-content
                                 })}
-                                onPress={() => handlePressItem(product, "PLUS")}>
+                                onPress={() => handlePressItem("PLUS")}>
                                 <AntDesign
                                     name="plussquare"
                                     size={24}
@@ -246,8 +264,10 @@ const ItemSingle = (props: IProps) => {
                     }}
                 >
                     <Pressable
+                        disabled={!filteredVariant}
+                        onPress={() => handleAddCart()}
                         style={({ pressed }) => ({
-                            opacity: pressed ? 0.5 : 1,
+                            opacity: pressed || !filteredVariant ? 0.5 : 1,
                             padding: 10,
                             backgroundColor: APP_COLOR.ORANGE,
                             borderRadius: 3,

@@ -11,8 +11,7 @@ const AddModalPage = () => {
 
     const [quantity, setQuantity] = useState<number>(1);
     const title = "Thêm vào giỏ hàng"
-    const handlePressItem = (item: IProductId | null, action: "MINUS" | "PLUS") => {
-        console.log("Me");
+    const handlePressItem = (action: "MINUS" | "PLUS") => {
         if (action === "MINUS" && quantity === 1) return;
         const total = action === "MINUS" ? -1 : 1;
         setQuantity((pevQuantity: number) => pevQuantity + total)
@@ -26,6 +25,7 @@ const AddModalPage = () => {
             <ItemSingle
                 quantity={quantity}
                 handlePressItem={handlePressItem}
+                handleAddCart={handleAddCart}
                 title={title}
             />
         </>

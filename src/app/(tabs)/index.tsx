@@ -48,11 +48,11 @@ const HomeTab = () => {
                 const res = await getCartByIdAPI(userId);
                 if (res.data) {
                     // Giỏ hàng đã tồn tại
-                    console.log("hihi", res.data)
+
                     setCart(res.data);
                 } else {
                     // Chưa có -> tạo mới
-                    console.log("haha", userId)
+
                     const createRes = await createCartAPI(userId);
                     if (createRes.data) {
                         setCart(createRes.data);
