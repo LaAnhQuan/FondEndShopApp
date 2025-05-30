@@ -39,9 +39,13 @@ const StickyFooter = () => {
                     backgroundColor: APP_COLOR.GREY, // Màu của đường gạch
                     marginVertical: 5, // Điều chỉnh khoảng cách trên dưới
                 }} />
-                <View style={{ alignItems: "center", width: "60%" }}>
-                    <MaterialIcons name="add-shopping-cart" size={25} color="white" />
-                    <Text style={{ color: "white", fontSize: 12 }}>Thêm vào Giỏ hàng</Text>
+                <View style={{ width: "60%" }}>
+                    <Pressable onPress={() => { router.navigate("/product/add.modal") }}>
+                        <View style={{ alignItems: "center" }}>
+                            <MaterialIcons name="add-shopping-cart" size={25} color="white" />
+                            <Text style={{ color: "white", fontSize: 12 }}>Thêm vào Giỏ hàng</Text>
+                        </View>
+                    </Pressable>
                 </View>
             </View>
             <View style={{

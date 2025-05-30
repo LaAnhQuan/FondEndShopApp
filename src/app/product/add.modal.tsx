@@ -6,11 +6,11 @@ import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import ItemSingle from "@/components/example/product/order/item.singer";
 import React, { useState } from "react";
 
-const CreateModalPage = () => {
+const AddModalPage = () => {
 
 
     const [quantity, setQuantity] = useState<number>(1);
-    const title = "Mua ngay"
+    const title = "Thêm vào giỏ hàng"
     const handlePressItem = (item: IProductId | null, action: "MINUS" | "PLUS") => {
         console.log("Me");
         if (action === "MINUS" && quantity === 1) return;
@@ -32,4 +32,4 @@ const CreateModalPage = () => {
     );
 };
 
-export default CreateModalPage;
+export default AddModalPage;

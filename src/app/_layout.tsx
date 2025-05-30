@@ -87,6 +87,15 @@ const RootLayout = () => {
                                 }}
                             // options={{ headerTitle: "Sản phẩm" }}
                             />
+                            <Stack.Screen
+                                name="product/add.modal"
+                                options={{
+                                    headerShown: false,
+                                    animation: "fade",
+                                    presentation: "transparentModal",
+                                }}
+                            // options={{ headerTitle: "Sản phẩm" }}
+                            />
                         </Stack>
                     </ThemeProvider>
                     {/* </SafeAreaView> */}

@@ -8,7 +8,16 @@ import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { useState } from "react";
 
 
-const ItemSingle = () => {
+interface IProps {
+    // showMinus : boolean;
+    handlePressItem: any;
+    quantity: number,
+    title: string,
+
+}
+
+const ItemSingle = (props: IProps) => {
+    const { quantity, handlePressItem, title } = props
     const showMinus = true;
     const { product } = useCurrentApp();
     const variants = product?.variants || [];
@@ -55,9 +64,7 @@ const ItemSingle = () => {
         })
     );
 
-    const handlePressItem = (item: IProductId | null, action: "MINUS" | "PLUS") => {
-        console.log("Me");
-    };
+
     return (
         <Animated.View
             entering={FadeIn}
@@ -206,7 +213,7 @@ const ItemSingle = () => {
                                         minWidth: 25,
                                         textAlign: "center"
                                     }}>
-                                        1
+                                        {quantity}
                                     </Text>
                                 </>
                             }
@@ -247,7 +254,7 @@ const ItemSingle = () => {
                         })}
                     >
                         <Text style={{ textAlign: "center", color: "white" }}>
-                            Thêm vào giỏ hàng
+                            {title}
                         </Text>
                     </Pressable>
                 </View>
