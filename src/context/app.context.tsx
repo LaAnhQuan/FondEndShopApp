@@ -7,7 +7,7 @@ interface AppContextType {
     setAppState: (v: any) => void;
     product: IProductId | null;
     setProduct: (v: any) => void;
-    cart: ICart | null;
+    cart: ICartDetail | null;
     setCart: (v: any) => void;
 }
 const AppContext = createContext<AppContextType | null>(null);

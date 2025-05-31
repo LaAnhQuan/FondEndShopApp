@@ -75,9 +75,15 @@ const RootLayout = () => {
                                 options={{ headerShown: false }}
 
                             />
-                            <Stack.Screen name="product/[id]"
+                            <Stack.Screen name="(cart)/cart.detail"
+                                options={{ headerShown: false }}
+
+                            />
+
+                            <Stack.Screen name="(cart)/confirm.cart.detail"
                                 options={{ headerShown: false }}
                             />
+
                             <Stack.Screen
                                 name="product/create.modal"
                                 options={{

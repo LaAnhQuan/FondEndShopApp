@@ -89,3 +89,5 @@ export const addCartProductAPI = (cart_id: number, quantity: number, product_var
     const url = `/cart-items`;
     return axios.post<IBackendRes<IAddCart>>(url, { cart_id, quantity, product_variant_id });
 }
+
+// export const checkOutCartAPI = ()

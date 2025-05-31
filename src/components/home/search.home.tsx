@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -60,6 +61,7 @@ const SearchHome = () => {
             </View>
             <View style={{ flexDirection: "row", alignSelf: "center", gap: 15 }}>
                 <Feather
+                    onPress={() => router.navigate("/(cart)/cart.detail")}
                     name="shopping-cart"
                     size={25}
                     color={APP_COLOR.ORANGE}

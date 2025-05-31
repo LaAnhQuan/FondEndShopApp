@@ -93,7 +93,7 @@ const StickyHeader = (props: IProps) => {
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, { alignSelf: "flex-start" }])}
-                    onPress={() => alert("me")}>
+                    onPress={() => router.navigate("/(cart)/cart.detail")}>
                     <Animated.View
                         style={[animatedBackgroundStyle, {
                             height: 30,

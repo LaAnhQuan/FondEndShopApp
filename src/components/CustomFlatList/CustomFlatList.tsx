@@ -20,7 +20,7 @@ type CustomFlatListProps<T> = Omit<FlatListProps<T>, 'ListHeaderComponent'> & {
    *
    * Hides when scrolling
    */
-  TopListElementComponent: JSX.Element;
+  TopListElementComponent?: JSX.Element;
 };
 
 /**
