@@ -215,38 +215,41 @@ const ItemSingle = (props: IProps) => {
                                 flexDirection: "row", gap: 3
                             }}
                         >
-                            {showMinus &&
-                                <>
-                                    <Pressable
-                                        style={({ pressed }) => ({
-                                            opacity: pressed === true ? 0.5 : 1,
-                                            alignSelf: "flex-start", //fit-content
-                                        })}
-                                        onPress={() => handlePressItem("MINUS")}
-                                    >
-                                        <AntDesign name="minussquareo"
-                                            size={24} color={APP_COLOR.ORANGE}
-                                        />
-                                    </Pressable>
-                                    <Text style={{
-                                        minWidth: 25,
-                                        textAlign: "center"
-                                    }}>
-                                        {quantity}
-                                    </Text>
-                                </>
-                            }
                             <Pressable
-                                style={({ pressed }) => ({
-                                    opacity: pressed === true ? 0.5 : 1,
-                                    alignSelf: "flex-start", //fit-content
-                                })}
-                                onPress={() => handlePressItem("PLUS")}>
-                                <AntDesign
-                                    name="plussquare"
-                                    size={24}
-                                    color={APP_COLOR.ORANGE}
-                                />
+                                disabled={!filteredVariant}
+                                style={{ flexDirection: "row", opacity: filteredVariant ? 1 : 0.5 }}
+                            >
+                                <Pressable
+                                    disabled={!filteredVariant}
+                                    style={({ pressed }) => ({
+                                        opacity: pressed === true ? 0.5 : 1,
+                                        alignSelf: "flex-start", //fit-content
+                                    })}
+                                    onPress={() => handlePressItem("MINUS")}
+                                >
+                                    <AntDesign name="minussquareo"
+                                        size={24} color={APP_COLOR.ORANGE}
+                                    />
+                                </Pressable>
+                                <Text style={{
+                                    minWidth: 25,
+                                    textAlign: "center"
+                                }}>
+                                    {quantity}
+                                </Text>
+                                <Pressable
+                                    disabled={!filteredVariant}
+                                    style={({ pressed }) => ({
+                                        opacity: pressed === true ? 0.5 : 1,
+                                        alignSelf: "flex-start", //fit-content
+                                    })}
+                                    onPress={() => handlePressItem("PLUS")}>
+                                    <AntDesign
+                                        name="plussquare"
+                                        size={24}
+                                        color={APP_COLOR.ORANGE}
+                                    />
+                                </Pressable>
                             </Pressable>
                         </View>
 

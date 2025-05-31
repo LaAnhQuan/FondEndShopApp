@@ -75,7 +75,7 @@ declare global {
     }
 
     interface IVariants {
-        id: string,
+        id: number,
         price: number,
         old_price: number,
         stock: number,
@@ -117,6 +117,14 @@ declare global {
         stock: number | null,
         sku: string | null,
         product: IProduct
+    }
+
+    interface IAddCart {
+        id: number,
+        cart_id: number,
+        product_variant_id: number | null,
+        product_id: number | null,
+        quantity: number,
     }
 
 }

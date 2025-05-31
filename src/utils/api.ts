@@ -84,3 +84,8 @@ export const getCartByIdAPI = (id: number) => {
     return axios.get<IBackendRes<ICartDetail>>(url);
 }
 
+
+export const addCartProductAPI = (cart_id: number, quantity: number, product_variant_id: number) => {
+    const url = `/cart-items`;
+    return axios.post<IBackendRes<IAddCart>>(url, { cart_id, quantity, product_variant_id });
+}
