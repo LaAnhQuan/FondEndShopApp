@@ -48,3 +48,13 @@ export const SignUpSchema = Yup.object().shape({
     return true; // At least one field is filled
   }
 );
+
+
+export const ConfirmSchema = Yup.object().shape({
+  note: Yup.string().nullable(), // Có thể rỗng
+  address: Yup.string()
+    .required('Address cannot be blank'),
+  phone: Yup.string()
+    .required('Phone cannot be blank')
+    .matches(/^\d{10}$/, 'Phone number must be exactly 10 digits'),
+});

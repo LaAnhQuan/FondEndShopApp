@@ -65,7 +65,7 @@ const HomeTab = () => {
         };
 
         checkAndCreateCart();
-    }, []);
+    }, [cart]);
 
     return (
         <SafeAreaView>

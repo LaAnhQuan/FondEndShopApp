@@ -90,4 +90,7 @@ export const addCartProductAPI = (cart_id: number, quantity: number, product_var
     return axios.post<IBackendRes<IAddCart>>(url, { cart_id, quantity, product_variant_id });
 }
 
-// export const checkOutCartAPI = ()
+export const checkOutCartAPI = (cart_id: number, note: string, phone: string, address: string) => {
+    const url = `/carts/checkout`;
+    return axios.post<IBackendRes<ICart>>(url, { cart_id, note, phone, address });
+}
