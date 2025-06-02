@@ -5,6 +5,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Text, View } from "react-native";
 import AppProvider from "context/app.context";
+import { APP_COLOR } from "@/utils/constant";
 
 
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
@@ -42,12 +43,9 @@ const RootLayout = () => {
                     <ThemeProvider value={navTheme}>
                         <Stack
                             screenOptions={{
-                                headerStyle: {
-                                    backgroundColor: '#f4511e',
-                                },
-                                headerTintColor: '#fff',
+                                headerTintColor: APP_COLOR.ORANGE,
                                 headerTitleStyle: {
-                                    fontWeight: 'bold',
+                                    color: 'black'
                                 },
 
                             }}>
@@ -84,12 +82,12 @@ const RootLayout = () => {
                                 options={{ headerShown: false }}
                             />
 
-                            <Stack.Screen name="product/[id]"
+                            <Stack.Screen name="(user)/product/[id]"
                                 options={{ headerShown: false }}
                             />
 
                             <Stack.Screen
-                                name="product/create.modal"
+                                name="(user)/product/create.modal"
                                 options={{
                                     headerShown: false,
                                     animation: "fade",
@@ -98,7 +96,7 @@ const RootLayout = () => {
                             // options={{ headerTitle: "Sản phẩm" }}
                             />
                             <Stack.Screen
-                                name="product/add.modal"
+                                name="(user)/product/add.modal"
                                 options={{
                                     headerShown: false,
                                     animation: "fade",

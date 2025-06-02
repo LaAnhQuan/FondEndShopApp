@@ -1,5 +1,4 @@
 import { getURLBaseBackEnd } from "@/utils/api";
-import { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native"
 
 
