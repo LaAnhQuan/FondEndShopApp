@@ -1,10 +1,12 @@
 import { useCurrentApp } from "@/context/app.context";
 import { APP_COLOR } from "@/utils/constant";
-import { View, Text, Image, Pressable, StyleSheet } from "react-native"
+import { View, Text, Image, Pressable, StyleSheet, Alert } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 import { getURLBaseBackEnd } from "@/utils/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -19,6 +21,22 @@ const AccountPage = () => {
     const baseImage = `${getURLBaseBackEnd()}/images/${appState?.user.avatar}`;
     const insets = useSafeAreaInsets();
 
+
+    const handleLogout = () => {
+        Alert.alert('Đăng xuất', 'Bạn chắc chắn đăng xuất người dùng ?', [
+            {
+                text: 'Hủy',
+                style: 'cancel',
+            },
+            {
+                text: 'Xác nhận',
+                onPress: async () => {
+                    await AsyncStorage.removeItem("token");
+                    router.replace("/(auth)/welcome");
+                }
+            },
+        ]);
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={{
@@ -130,6 +148,7 @@ const AccountPage = () => {
                 paddingBottom: 15
             }}>
                 <Pressable
+                    onPress={handleLogout}
                     style={({ pressed }) => ({
                         opacity: pressed === true ? 0.5 : 1,
                         padding: 10,
