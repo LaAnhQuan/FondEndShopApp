@@ -104,6 +104,10 @@ const RootLayout = () => {
                                 }}
                             // options={{ headerTitle: "Sản phẩm" }}
                             />
+
+                            <Stack.Screen name="(user)/account/info"
+                                options={{ headerTitle: "Cập nhật thông tin" }}
+                            />
                         </Stack>
                     </ThemeProvider>
                     {/* </SafeAreaView> */}
