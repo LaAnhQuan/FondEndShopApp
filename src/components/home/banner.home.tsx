@@ -57,14 +57,14 @@ function BannerHome() {
             <Carousel
                 ref={ref}
                 width={width}
-                height={width / 4}
+                height={width / 3}
                 data={sliders}
                 onProgressChange={progress}
                 renderItem={({ item, index }) => (
                     <Image
                         style={{
                             width: width,
-                            height: width / 3.7,
+                            height: width / 3,
                             resizeMode: 'cover',
                         }}
                         source={{ uri: `${getURLBaseBackEnd()}/images/${item.image}` }}

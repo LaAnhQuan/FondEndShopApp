@@ -5,7 +5,7 @@ import { AccessibilityInfo, AppState, Pressable, ScrollView, StyleSheet, Text, V
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import ItemSingle from "@/components/example/product/order/item.singer";
 import React, { useState } from "react";
-import { addCartProductAPI } from "@/utils/api";
+import { addCartProductAPI, getCartByIdAPI } from "@/utils/api";
 import Toast from "react-native-root-toast";
 
 const AddModalPage = () => {
@@ -13,8 +13,11 @@ const AddModalPage = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [selectedVariant, setSelectedVariant] = useState<IVariants | null>(null);
 
-    const { cart } = useCurrentApp();
+    const { cart, setCart, appState } = useCurrentApp();
+    const userId = appState?.user?.id;
+
     const title = "Thêm vào giỏ hàng"
+
     const handlePressItem = (action: "MINUS" | "PLUS") => {
         if (action === "MINUS" && quantity === 1) return;
         const total = action === "MINUS" ? -1 : 1;
@@ -26,6 +29,10 @@ const AddModalPage = () => {
     const handleAddCart = async () => {
         const res = await addCartProductAPI(cart?.id as number, quantity, selectedVariant?.id as number)
         if (res.data) {
+            const cartRes = await getCartByIdAPI(userId);
+            if (cartRes.data) {
+                setCart(cartRes.data); // Cập nhật cart mới nhất vào context
+            }
             const m = Array.isArray(res.message)
                 ? res.message[0] : res.message;
             let toast = Toast.show(m, {

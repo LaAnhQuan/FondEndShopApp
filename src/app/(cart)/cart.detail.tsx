@@ -11,30 +11,45 @@ import { useEffect, useState } from "react";
 export default function CartDetail() {
 
     const { cart } = useCurrentApp();
-    const [total, setTotal] = useState<number>(0);
-    const [sale, setSale] = useState<number>(0);
+    // const [total, setTotal] = useState<number>(0);
+    // const [sale, setSale] = useState<number>(0);
 
-    useEffect(() => {
-        if (!cart?.cart_items) return;
+    // useEffect(() => {
+    //     if (!cart?.cart_items) return;
 
-        let total = 0;
-        let sale = 0;
+    //     let total = 0;
+    //     let sale = 0;
 
-        cart.cart_items.forEach(item => {
-            const price = item?.product_variant_values?.price;
+    //     cart.cart_items.forEach(item => {
+    //         const price = item?.product_variant_values?.price;
+    //         const oldPrice = item?.product_variant_values?.old_price || 0;
+    //         const quantity = item.quantity;
+
+    //         total += price * quantity;
+
+    //         if (oldPrice > price) {
+    //             sale += (oldPrice - price) * quantity;
+    //         }
+    //     });
+
+    //     setTotal(total);
+    //     setSale(sale);
+    // }, [cart?.cart_items]);
+
+    const { total, sale } = cart?.cart_items?.reduce(
+        (acc, item) => {
+            const price = item?.product_variant_values?.price || 0;
             const oldPrice = item?.product_variant_values?.old_price || 0;
-            const quantity = item.quantity;
+            const quantity = item.quantity || 0;
 
-            total += price * quantity;
-
+            acc.total += price * quantity;
             if (oldPrice > price) {
-                sale += (oldPrice - price) * quantity;
+                acc.sale += (oldPrice - price) * quantity;
             }
-        });
-
-        setTotal(total);
-        setSale(sale);
-    }, [cart?.cart_items]);
+            return acc;
+        },
+        { total: 0, sale: 0 }
+    ) || { total: 0, sale: 0 };
 
 
 

@@ -94,3 +94,18 @@ export const checkOutCartAPI = (cart_id: number, note: string, phone: string, ad
     const url = `/carts/checkout`;
     return axios.post<IBackendRes<ICart>>(url, { cart_id, note, phone, address });
 }
+
+export const updateProfileUserAPI = (id: number, name: string, phone: string) => {
+    const url = `/users/${id}/profile`;
+    return axios.put<IBackendRes<ILogin>>(url, { id, name, phone });
+}
+
+export const updateUserPasswordAPI = (
+    id: number,
+    old_password: string,
+    new_password: string,
+    confirm_new_password: string
+) => {
+    const url = `/users/${id}/password`;
+    return axios.put<IBackendRes<ILogin>>(url, { id, old_password, new_password, confirm_new_password });
+}

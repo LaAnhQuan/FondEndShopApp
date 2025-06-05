@@ -3,13 +3,7 @@ import BannerHome from "./banner.home";
 import { APP_COLOR } from "@/utils/constant";
 
 const styles = StyleSheet.create({
-    // topList: {
-    //     borderColor: "orange",
-    //     borderWidth: 5,
-    //     minHeight: 100,
-    //     marginBottom: 6,
-    //     width: "100%"
-    // }
+
 })
 
 const data1 = [
@@ -30,43 +24,31 @@ const TopListHome = () => {
     return (
         <View >
             <BannerHome />
-            <ScrollView
+            <FlatList
                 horizontal
+                data={data1}
+                keyExtractor={(item) => item.key.toString()}
                 showsHorizontalScrollIndicator={false}
-                directionalLockEnabled={true}
-                alwaysBounceVertical={false}
-                style={{ marginVertical: 15 }}
-            >
-                <FlatList
-                    contentContainerStyle={{ alignSelf: 'flex-start' }}
-                    numColumns={Math.ceil(data1.length)}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    data={data1}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <View style={{
-                                padding: 5,
-                                width: 100,
-                                alignItems: "center",
-                            }}>
-                                <Image
-                                    source={item.source}
-                                    style={{
-                                        height: 35, width: 35,
-                                        borderRadius: 10,
-                                        borderWidth: 1,
-                                        borderColor: APP_COLOR.ORANGE
-                                    }}
-                                />
-                                <Text style={{ textAlign: "center" }}>
-                                    {item.name}
-                                </Text>
-                            </View>
-                        )
-                    }}
-                />
-            </ScrollView>
+                renderItem={({ item }) => (
+                    <View style={{
+                        padding: 5,
+                        width: 100,
+                        alignItems: "center",
+                    }}>
+                        <Image
+                            source={item.source}
+                            style={{
+                                height: 35, width: 35,
+                                borderRadius: 10,
+                                borderWidth: 1,
+                                borderColor: APP_COLOR.ORANGE
+                            }}
+                        />
+                        <Text style={{ textAlign: "center" }}>{item.name}</Text>
+                    </View>
+                )}
+            />
+
         </View>
     )
 }

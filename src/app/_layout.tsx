@@ -108,9 +108,12 @@ const RootLayout = () => {
                             <Stack.Screen name="(user)/account/info"
                                 options={{ headerTitle: "Cập nhật thông tin" }}
                             />
+                            <Stack.Screen
+                                name="(user)/account/password"
+                                options={{ headerTitle: "Cập nhật mật khẩu" }}
+                            />
                         </Stack>
                     </ThemeProvider>
-                    {/* </SafeAreaView> */}
                 </AppProvider>
             </RootSiblingParent>
         </GestureHandlerRootView>

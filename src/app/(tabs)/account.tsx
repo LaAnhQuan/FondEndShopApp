@@ -81,15 +81,17 @@ const AccountPage = () => {
                 <MaterialIcons name="navigate-next" size={24} color="grey" />
             </Pressable>
 
-            <Pressable style={{
-                paddingVertical: 15,
-                paddingHorizontal: 10,
-                borderBottomColor: "#eee",
-                borderBottomWidth: 1,
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center"
-            }}>
+            <Pressable
+                onPress={() => router.navigate("/(user)/account/password")}
+                style={{
+                    paddingVertical: 15,
+                    paddingHorizontal: 10,
+                    borderBottomColor: "#eee",
+                    borderBottomWidth: 1,
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
                 <View style={{
                     flexDirection: "row",
                     gap: 10,

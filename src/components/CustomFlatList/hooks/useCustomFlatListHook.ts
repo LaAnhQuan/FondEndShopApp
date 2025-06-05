@@ -13,7 +13,7 @@ type ICustomFlatListStyles = {
   topElement?: StyleProp<ViewStyle>;
 };
 
-type TUseCustomFlatListHook=[
+type TUseCustomFlatListHook = [
   Animated.Value,
   ICustomFlatListStyles,
   (event: LayoutChangeEvent) => void,
@@ -22,6 +22,7 @@ type TUseCustomFlatListHook=[
 ]
 
 const window = Dimensions.get("window");
+const SCROLL_OFFSET = 100; // Thêm khoảng cách cuộn bổ sung (có thể điều chỉnh)
 
 export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -64,11 +65,11 @@ export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
             extrapolate: "clamp",
             inputRange: [
               -window.height,
-              heights.header + heights.sticky + heights.topList
+              heights.header + heights.sticky + heights.topList + SCROLL_OFFSET,
             ],
             outputRange: [
               window.height,
-              -(heights.header + heights.sticky + heights.topList)
+              -(heights.header + heights.sticky + heights.topList + SCROLL_OFFSET),
             ]
           })
         }

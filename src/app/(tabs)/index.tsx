@@ -2,75 +2,74 @@ import CustomFlatList from "@/components/CustomFlatList/CustomFlatList";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
 import { View, StyleSheet, Dimensions } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createCartAPI, getCartByIdAPI, productsAPI } from "@/utils/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CollectionHome from "@/components/home/collection.home";
-import ContentLoader, { Rect } from "react-content-loader/native"
 import { useCurrentApp } from "@/context/app.context";
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 const SPACING = 6;
 
-
 const HomeTab = () => {
-
     const [product, setProduct] = useState<IProduct[]>([]);
     const { cart, setCart, appState } = useCurrentApp();
     const userId = appState?.user?.id;
 
-    React.useEffect(() => {
-        // Fetch image URLs from the backend
+    const hasCheckedCart = useRef(false);
+
+
+    useEffect(() => {
         const fetchProduct = async () => {
-
             try {
-                const res = await productsAPI();  // Thay thế URL backend của bạn tại đây
+                const res = await productsAPI();
                 if (res.data) {
-                    // const imageUrls = res.data.map((item: { image: string }) => item.image);
                     setProduct(res.data);
-
                 }
-
-
             } catch (error) {
-                console.error("Error fetching images:", error);
+                console.error("Error fetching products:", error);
             }
         };
 
         fetchProduct();
-    }, [appState?.user.id]);
+    }, []);
 
     useEffect(() => {
-        const checkAndCreateCart = async () => {
-            if (!userId) return;
+        if (!userId) return;
 
-            try {
-                const res = await getCartByIdAPI(userId);
-                if (res.data) {
-                    // Giỏ hàng đã tồn tại
+        // Nếu cart bị xóa (null hoặc undefined), reset flag để có thể gọi lại
+        if (!cart) {
+            hasCheckedCart.current = false;
+        }
 
-                    setCart(res.data);
-                } else {
-                    // Chưa có -> tạo mới
-
-                    const createRes = await createCartAPI(userId);
-                    if (createRes.data) {
-                        setCart(createRes.data);
+        if (!hasCheckedCart.current) {
+            const checkAndCreateCart = async () => {
+                try {
+                    const res = await getCartByIdAPI(userId);
+                    if (res.data) {
+                        setCart(res.data);
+                    } else {
+                        const createRes = await createCartAPI(userId);
+                        if (createRes.data) {
+                            setCart(createRes.data);
+                        }
                     }
-                    console.log(createRes.data)
+                    hasCheckedCart.current = true; // Đánh dấu đã kiểm tra tạo giỏ hàng
+                } catch (err) {
+                    console.error("Lỗi khi kiểm tra/tạo giỏ hàng:", err);
                 }
-            } catch (err) {
-                console.error("Lỗi khi kiểm tra/tạo giỏ hàng:", err);
-            }
-        };
+            };
 
-        checkAndCreateCart();
-    }, [cart]);
+            checkAndCreateCart();
+        }
+    }, [userId, cart, setCart]);
+
 
     return (
         <SafeAreaView>
-
             <CustomFlatList
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 data={product}
                 numColumns={2}
                 style={styles.list}
@@ -91,7 +90,6 @@ const HomeTab = () => {
                 StickyElementComponent={<SearchHome />}
                 TopListElementComponent={<TopListHome />}
             />
-
         </SafeAreaView>
     );
 };
