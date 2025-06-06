@@ -7,22 +7,40 @@ import { createCartAPI, getCartByIdAPI, productsAPI } from "@/utils/api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CollectionHome from "@/components/home/collection.home";
 import { useCurrentApp } from "@/context/app.context";
+import { router } from "expo-router";
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 const SPACING = 6;
 
 const HomeTab = () => {
+    const [mounted, setMounted] = useState(false);
     const [product, setProduct] = useState<IProduct[]>([]);
     const { cart, setCart, appState } = useCurrentApp();
     const userId = appState?.user?.id;
 
     const hasCheckedCart = useRef(false);
 
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(4);
+
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+
+    useEffect(() => {
+        if (!mounted) return;
+        setTimeout(() => {
+            router.push("/(auth)/popup.sale")
+        }, 1000)
+    }, [mounted])
+
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await productsAPI();
+                const res = await productsAPI(`page=1&pageSize=${pageSize}`);
                 if (res.data) {
                     setProduct(res.data);
                 }
@@ -33,6 +51,22 @@ const HomeTab = () => {
 
         fetchProduct();
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await productsAPI(`page=${currentPage}&pageSize=${pageSize}`);
+            if (res.data) {
+                setProduct(prev => [...prev, ...res?.data as any])
+            }
+        }
+        if (currentPage > 1) {
+            fetchData();
+        }
+    }, [currentPage])
+
+    const handleEndReached = async () => {
+        setCurrentPage(prev => prev + 1);
+    }
 
     useEffect(() => {
         if (!userId) return;
@@ -68,6 +102,8 @@ const HomeTab = () => {
     return (
         <SafeAreaView>
             <CustomFlatList
+                onEndReachedThreshold={0.5}
+                onEndReached={handleEndReached}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 data={product}

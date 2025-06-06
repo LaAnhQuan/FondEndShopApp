@@ -31,8 +31,8 @@ export const getURLBaseBackEnd = () => {
     return backend;
 }
 
-export const productsAPI = () => {
-    const url = `/products`;
+export const productsAPI = (query: string) => {
+    const url = `/products?${query}`;
     return axios.get<IBackendRes<IProduct[]>>(url);
 }
 

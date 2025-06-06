@@ -116,6 +116,14 @@ const RootLayout = () => {
                                 name="(user)/account/password"
                                 options={{ headerTitle: "Cập nhật mật khẩu" }}
                             />
+                            <Stack.Screen
+                                name="(auth)/popup.sale"
+                                options={{
+                                    headerShown: false,
+                                    animation: "fade",
+                                    presentation: "transparentModal",
+                                }}
+                            />
                         </Stack>
                     </ThemeProvider>
                 </AppProvider>
