@@ -29,7 +29,7 @@ const AddModalPage = () => {
     const handleAddCart = async () => {
         const res = await addCartProductAPI(cart?.id as number, quantity, selectedVariant?.id as number)
         if (res.data) {
-            const cartRes = await getCartByIdAPI(userId);
+            const cartRes = await getCartByIdAPI(userId as number);
             if (cartRes.data) {
                 setCart(cartRes.data); // Cập nhật cart mới nhất vào context
             }

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getAccountAPI } from "@/utils/api";
 import { useCurrentApp } from "@/context/app.context";
 import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from "expo-font";
+import { APP_FONT } from "@/utils/constant";
 
 
 // Keep the splash screen visible while we fetch resources
@@ -15,6 +17,9 @@ const RootPage = () => {
     const { setAppState } = useCurrentApp();
     const [state, setState] = useState<any>();
 
+    const [loaded, error] = useFonts({
+        [APP_FONT]: require('@/assets/font/OpenSans-Regular.ttf')
+    })
 
     useEffect(() => {
         async function prepare() {
