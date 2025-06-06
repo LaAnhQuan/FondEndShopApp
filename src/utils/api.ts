@@ -109,3 +109,8 @@ export const updateUserPasswordAPI = (
     const url = `/users/${id}/password`;
     return axios.put<IBackendRes<ILogin>>(url, { id, old_password, new_password, confirm_new_password });
 }
+
+export const getRestaurantByName = (name: string) => {
+    const url = `/products?search=${name}&page=1&pageSize=10`;
+    return axios.get<IBackendRes<IProduct[]>>(url);
+}

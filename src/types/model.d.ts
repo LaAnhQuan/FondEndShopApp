@@ -5,6 +5,9 @@ declare global {
         error?: string | string[];
         message: string | string[];
         data?: T;
+        currentPage?: number;
+        totalPages?: number;
+        total?: number;
     }
 
     interface IRegister {

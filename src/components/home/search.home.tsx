@@ -1,5 +1,5 @@
 import { APP_COLOR } from "@/utils/constant";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -8,7 +8,7 @@ import { router } from "expo-router";
 const styles = StyleSheet.create({
     container: {
         width: "75%",
-        backgroundColor: APP_COLOR.GREY,
+        backgroundColor: "#eee",
         gap: 5,
         flexDirection: "row",
         margin: 10,
@@ -43,14 +43,16 @@ const SearchHome = () => {
     return (
         <View style={styles.body}>
             <View style={styles.container}>
-                <View style={styles.leftSection}>
+                <Pressable
+                    onPress={() => router.navigate("/(auth)/search")}
+                    style={styles.leftSection}>
                     <EvilIcons
                         name="search"
                         size={30}
                         color={APP_COLOR.ORANGE}
                     />
                     <Text style={styles.text}>Deal Hot Hôm Nay Từ 0đ...</Text>
-                </View>
+                </Pressable>
                 <View style={styles.rightSection}>
                     <Feather
                         name="camera"
