@@ -32,7 +32,7 @@ const AppProvider = (props: IProps) => {
     const [theme, setTheme] = useState<string>("eric-light");
     const [appState, setAppState] = useState<ILogin | null>(null);
     const [product, setProduct] = useState<IProductId | null>(null);
-    const [cart, setCart] = useState<ICart | null>(null);
+    const [cart, setCart] = useState<ICartDetail | null>(null);
     return (
         <AppContext.Provider value={{
             theme, setTheme,

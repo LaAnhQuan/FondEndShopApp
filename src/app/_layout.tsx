@@ -90,7 +90,7 @@ const RootLayout = () => {
 
                             />
 
-                            <Stack.Screen name="(cart)/confirm.cart.detail"
+                            <Stack.Screen name="(cart)/confirm.detail"
                                 options={{ headerShown: false }}
                             />
 

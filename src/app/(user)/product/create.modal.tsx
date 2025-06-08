@@ -1,4 +1,5 @@
 import ItemSingle from "@/components/example/product/order/item.singer";
+import { router } from "expo-router";
 import React, { useState } from "react";
 
 const CreateModalPage = () => {
@@ -12,11 +13,15 @@ const CreateModalPage = () => {
         setQuantity((pevQuantity: number) => pevQuantity + total)
     };
 
-    console.log("check selectedVariant", selectedVariant)
+    // console.log("check selectedVariant", selectedVariant)
 
     const handleAddCart = () => {
-        alert("me")
-    }
+        if (selectedVariant !== null)
+            router.push({ pathname: `/(cart)/confirm.detail`, params: { id: selectedVariant.id.toString(), quantity: quantity.toString() } });
+    };
+
+
+
     return (
         <>
             <ItemSingle

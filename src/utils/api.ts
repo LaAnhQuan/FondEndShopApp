@@ -114,3 +114,8 @@ export const getRestaurantByName = (name: string) => {
     const url = `/products?search=${name}&page=1&pageSize=10`;
     return axios.get<IBackendRes<IProduct[]>>(url);
 }
+
+export const checkOutDirectAPI = (user_id: number, product_variant_id: number, quantity: number, note: string, phone: string, address: string) => {
+    const url = `/orders`;
+    return axios.post<IBackendRes<ICart>>(url, { user_id, product_variant_id, quantity, note, phone, address });
+}

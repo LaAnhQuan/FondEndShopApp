@@ -67,12 +67,6 @@ const StickyFooter = () => {
                         <Text style={{ color: "white", fontSize: 16 }}>
                             Mua ngay
                         </Text>
-                        {/* <Text style={{
-                            color: "white",
-                            fontSize: 16
-                        }}>
-                            {currencyFormatter(125000)}
-                        </Text> */}
                     </View>
                 </Pressable>
             </View>

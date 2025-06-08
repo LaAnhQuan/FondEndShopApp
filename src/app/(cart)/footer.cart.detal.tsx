@@ -61,7 +61,7 @@ const FooterCartDetail = (props: IProps) => {
             </View>
 
             {/* 3. Nút "Mua hàng" */}
-            <Pressable onPress={() => router.navigate("/(cart)/confirm.cart.detail")}>
+            <Pressable onPress={() => router.navigate("/(cart)/confirm.detail")}>
                 <View style={{
                     backgroundColor: APP_COLOR.ORANGE,
                     borderRadius: 4,

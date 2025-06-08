@@ -1,16 +1,15 @@
-import ShareButton from "@/components/button/share.button"
-import SocialButton from "@/components/button/social.button"
-import ShareInput from "@/components/input/share.input"
-import { useCurrentApp } from "@/context/app.context"
-import { checkOutCartAPI, loginAPI } from "@/utils/api"
-import { APP_COLOR } from "@/utils/constant"
-import { ConfirmSchema } from "@/utils/validate.schema"
-import { Link, router } from "expo-router"
-import { Formik } from "formik"
-import { useState } from "react"
-import { Text, View, StyleSheet } from "react-native"
-import Toast from "react-native-root-toast"
-import { SafeAreaView } from "react-native-safe-area-context"
+import ShareButton from "@/components/button/share.button";
+import ShareInput from "@/components/input/share.input";
+import { useCurrentApp } from "@/context/app.context";
+import { checkOutCartAPI, checkOutDirectAPI } from "@/utils/api";
+import { APP_COLOR } from "@/utils/constant";
+import { ConfirmSchema } from "@/utils/validate.schema";
+import { router, useLocalSearchParams } from "expo-router";
+import { Formik } from "formik";
+import { useState } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import Toast from "react-native-root-toast";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
     container: {
@@ -18,57 +17,63 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         gap: 10
     },
-
-})
+});
 
 const ConfirmCartDetail = () => {
-
     const [loading, setLoading] = useState<boolean>(false);
-    const { cart } = useCurrentApp();
+    const { cart, appState } = useCurrentApp();
+    const { id, quantity } = useLocalSearchParams();
 
+    // Parse các tham số từ query string (id và quantity)
+    const id_pro = parseInt(Array.isArray(id) ? id[0] : id, 10);
+    const quantity_pro = parseInt(Array.isArray(quantity) ? quantity[0] : quantity, 10);
+
+    // Hàm xử lý thanh toán
     const handleCheckOut = async (cart_id: number, note: string, phone: string, address: string) => {
         try {
-            setLoading(true)
-            const res = await checkOutCartAPI(cart_id, note, phone, address);
-            setLoading(false)
-            console.log(res.data)
+            let res;
+            // Kiểm tra nếu có id và quantity hợp lệ, dùng checkout trực tiếp
+            if (id_pro && quantity_pro > 0) {
+                setLoading(true);
+                res = await checkOutDirectAPI(appState?.user.id as number, id_pro, quantity_pro, note, phone, address);
+            } else {
+                // Nếu không, dùng checkout giỏ hàng
+                setLoading(true);
+                res = await checkOutCartAPI(cart_id, note, phone, address);
+            }
+            setLoading(false);
+
             if (res.data) {
-                const m = Array.isArray(res.message)
-                    ? res.message[0] : res.message;
-                let toast = Toast.show(m, {
+                const message = Array.isArray(res.message) ? res.message[0] : res.message;
+                Toast.show(message, {
                     duration: Toast.durations.LONG,
                     textColor: "white",
                     backgroundColor: APP_COLOR.ORANGE,
                     opacity: 1,
-                    position: -180,
                     animation: true
                 });
                 router.replace("/(tabs)");
             } else {
-                const m = Array.isArray(res.message)
-                    ? res.message[0] : res.message;
-                let toast = Toast.show(m, {
+                const message = Array.isArray(res.message) ? res.message[0] : res.message;
+                Toast.show(message, {
                     duration: Toast.durations.LONG,
                     textColor: "white",
                     backgroundColor: APP_COLOR.ORANGE,
                     opacity: 1,
-                    position: -180,
                     animation: true
                 });
             }
         } catch (error) {
-            console.log(">>> check error: ", error)
+            console.log(">>> check error: ", error);
         }
-    }
-
-
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Formik
                 validationSchema={ConfirmSchema}
                 initialValues={{ note: '', address: '', phone: '' }}
-                onSubmit={values => handleCheckOut(cart?.id as number, values.note, values.phone, values.address)}
+                onSubmit={(values) => handleCheckOut(cart?.id as number, values.note, values.phone, values.address)}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                     <View style={styles.container}>
@@ -108,7 +113,6 @@ const ConfirmCartDetail = () => {
                         <View style={{ flexDirection: "row", gap: 10 }}>
                             <View style={{ flex: 1 }}>
                                 <ShareButton
-                                    // loading={loading}
                                     title="Hủy"
                                     onPress={() => router.back()}
                                     textStyle={{
@@ -148,14 +152,11 @@ const ConfirmCartDetail = () => {
                                 />
                             </View>
                         </View>
-
-
                     </View>
                 )}
             </Formik>
         </SafeAreaView>
-    )
-
-}
+    );
+};
 
 export default ConfirmCartDetail;
