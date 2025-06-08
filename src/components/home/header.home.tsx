@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native"
-import Entypo from '@expo/vector-icons/Entypo';
+import { Entypo } from '@expo/vector-icons';
 import { APP_COLOR } from "@/utils/constant";
 
 

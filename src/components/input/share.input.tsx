@@ -1,7 +1,7 @@
 import { APP_COLOR } from "@/utils/constant";
 import { useState } from "react";
 import { Text, View, StyleSheet, TextInput, KeyboardTypeOptions } from "react-native"
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
     inputGroup: {

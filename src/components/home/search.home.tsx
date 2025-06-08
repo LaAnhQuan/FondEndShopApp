@@ -1,8 +1,8 @@
 import { APP_COLOR } from "@/utils/constant";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import EvilIcons from '@expo/vector-icons/EvilIcons';
-import Feather from '@expo/vector-icons/Feather';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { EvilIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { router } from "expo-router";
 
 const styles = StyleSheet.create({

@@ -73,6 +73,14 @@ const RootLayout = () => {
                                 name="(auth)/search"
                                 options={{ headerShown: false }}
                             />
+                            <Stack.Screen
+                                name="(auth)/popup.sale"
+                                options={{
+                                    headerShown: false,
+                                    animation: "fade",
+                                    presentation: "transparentModal",
+                                }}
+                            />
                             <Stack.Screen name="(tabs)"
                                 options={{ headerShown: false }}
 
@@ -117,13 +125,10 @@ const RootLayout = () => {
                                 options={{ headerTitle: "Cập nhật mật khẩu" }}
                             />
                             <Stack.Screen
-                                name="(auth)/popup.sale"
-                                options={{
-                                    headerShown: false,
-                                    animation: "fade",
-                                    presentation: "transparentModal",
-                                }}
+                                name="(user)/account/order"
+                                options={{ headerTitle: "Các đơn hàng đã đặt" }}
                             />
+
                         </Stack>
                     </ThemeProvider>
                 </AppProvider>

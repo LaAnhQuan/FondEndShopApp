@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native"
 import saleoffImg from '@/assets/saleoff/a-flat-sticker-of-garage-sale-vector.jpg';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { AntDesign } from '@expo/vector-icons';
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
+import { APP_COLOR } from "@/utils/constant";
 
 const PopupSalePage = () => {
 
@@ -26,24 +27,27 @@ const PopupSalePage = () => {
                         justifyContent: "center",
 
                     }}>
-                    <View style={{
-                        position: "absolute",
-                        top: "27%",  // hoặc bạn chỉnh con số cho hợp
-                        right: "10%",
-                        backgroundColor: "white",
-                        height: 26,
-                        width: 26,
-                        borderRadius: 13,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 10,
-
-                    }}>
+                    <Pressable
+                        onPress={() => router.back()}
+                        style={{
+                            position: "absolute",
+                            top: "27%",
+                            right: "10%",
+                            // backgroundColor: "#ccc",
+                            height: 26,
+                            width: 26,
+                            borderRadius: 13,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            zIndex: 10,
+                        }}
+                    >
                         <AntDesign
-                            onPress={() => router.back()}
-                            name="close" size={22} color="grey"
+                            name="close"
+                            size={22}
+                            color="grey"
                         />
-                    </View>
+                    </Pressable>
 
                     <Image
                         source={saleoffImg}

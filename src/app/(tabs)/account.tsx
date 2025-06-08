@@ -2,8 +2,8 @@ import { useCurrentApp } from "@/context/app.context";
 import { APP_COLOR } from "@/utils/constant";
 import { View, Text, Image, Pressable, StyleSheet, Alert } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Feather from '@expo/vector-icons/Feather';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { getURLBaseBackEnd } from "@/utils/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
@@ -99,6 +99,29 @@ const AccountPage = () => {
                 }}>
                     <MaterialIcons name="password" size={20} color="green" />
                     <Text>Thay đổi mật khẩu</Text>
+                </View>
+
+                <MaterialIcons name="navigate-next" size={24} color="grey" />
+            </Pressable>
+
+            <Pressable
+                onPress={() => router.navigate("/(user)/account/order")}
+                style={{
+                    paddingVertical: 15,
+                    paddingHorizontal: 10,
+                    borderBottomColor: "#eee",
+                    borderBottomWidth: 1,
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
+                <View style={{
+                    flexDirection: "row",
+                    gap: 10,
+                    alignItems: "center"
+                }}>
+                    <MaterialIcons name="list-alt" size={20} color="green" />
+                    <Text>Các đơn hàng đã đặt</Text>
                 </View>
 
                 <MaterialIcons name="navigate-next" size={24} color="grey" />

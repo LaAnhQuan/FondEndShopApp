@@ -1,6 +1,6 @@
 import { FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { APP_COLOR } from "@/utils/constant";
 import { TextInput } from "react-native-gesture-handler";
 import { router } from "expo-router";

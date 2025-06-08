@@ -1,20 +1,12 @@
 import { Text, View, StyleSheet, ImageBackground, Image } from "react-native"
 import ShareButton from "components/button/share.button";
 import { APP_COLOR } from "utils/constant";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import bg from '@/assets/auth/BackGround.png'
 import fbLogo from '@/assets/auth/facebook.png'
 import ggLogo from '@/assets/auth/google.png'
-import Lotus from '@/assets/auth/hinh-nen-hoa-sen-3d-11.png'
 import dophin from '@/assets/auth/login and register.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
-import { Link, Redirect, router } from "expo-router";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from "react";
-import { getAccountAPI } from "@/utils/api";
-import { useCurrentApp } from "@/context/app.context";
-
+import { Link, router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {

@@ -1,11 +1,13 @@
 import { APP_COLOR } from "@/utils/constant";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, TextInput, View } from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Feather from '@expo/vector-icons/Feather';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import Animated from "react-native-reanimated";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+
 const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons)
 const AnimatedFeather = Animated.createAnimatedComponent(Feather)
 const AnimatedMaterialCommunityIcons = Animated.createAnimatedComponent(MaterialCommunityIcons)

@@ -1,11 +1,8 @@
 import { APP_COLOR } from "@/utils/constant";
 import { StyleSheet, Text, View } from "react-native";
-import EvilIcons from '@expo/vector-icons/EvilIcons';
-import Feather from '@expo/vector-icons/Feather';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { router } from "expo-router";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 const styles = StyleSheet.create({
     container: {

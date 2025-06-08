@@ -1,7 +1,7 @@
 import { currencyFormatter, getURLBaseBackEnd, } from "@/utils/api";
 import { APP_COLOR } from "@/utils/constant";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { AntDesign } from '@expo/vector-icons';
 import { useCurrentApp } from "@/context/app.context";
 import { router } from "expo-router";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";

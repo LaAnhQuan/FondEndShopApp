@@ -1,8 +1,7 @@
 import { APP_COLOR } from '@/utils/constant';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { View, Text, LayoutChangeEvent, Pressable } from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { currencyFormatter } from '@/utils/api';
 import { useState } from 'react';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';

@@ -1,12 +1,10 @@
 import { APP_COLOR } from "@/utils/constant";
 import { View, Text, StyleSheet, Image, FlatList, Platform, Pressable, Dimensions } from "react-native"; import demo from "@/assets/demo.jpg";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { currencyFormatter, getURLBaseBackEnd } from "@/utils/api";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from "react";
 import { router } from "expo-router";
-import ContentLoader, { Rect } from "react-content-loader/native"
-const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
 interface IProps {
     id: number

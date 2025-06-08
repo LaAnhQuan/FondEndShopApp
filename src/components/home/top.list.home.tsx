@@ -46,7 +46,7 @@ const TopListHome = () => {
                         />
                         <Text style={{
                             textAlign: "center",
-                            fontFamily: APP_FONT
+                            // fontFamily: APP_FONT
                         }}>
                             {item.name}</Text>
                     </View>
