@@ -106,3 +106,8 @@ export const getOrderHistoryAPI = (user_id: number) => {
     const url = `/orders/user/${user_id}`;
     return axios.get<IBackendRes<IOrderHistory[]>>(url);
 }
+
+export const getOrderHistoryDetailAPI = (order_id: number) => {
+    const url = `/order-details/order/${order_id}`;
+    return axios.get<IBackendRes<IOrderDetailHistory[]>>(url);
+}

@@ -141,5 +141,25 @@ declare global {
         created_at: string,
     }
 
+    interface IOrderDetailHistory {
+        id: number,
+        order_id: number,
+        product_variant_id: number,
+        product_id: number,
+        price: number,
+        quantity: number,
+        created_at: string,
+        product_variant_values: {
+            id: number,
+            product_id: number,
+            price: number,
+            old_price: number | null,
+            product: {
+                name: string,
+                image: any
+            }
+        }
+    }
+
 }
 

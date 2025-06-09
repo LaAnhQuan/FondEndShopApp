@@ -5,6 +5,7 @@ import { currencyFormatter, dateTimeFormatter, getStatusName } from "@/utils/for
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native"
 import { Entypo } from '@expo/vector-icons';
+import { router } from "expo-router";
 
 const UserOrder = () => {
     const { appState } = useCurrentApp();
@@ -40,7 +41,12 @@ const UserOrder = () => {
                                 </View>
                                 <View>
                                     <Pressable
-                                        onPress={() => alert("me")}
+                                        onPress={() =>
+                                            router.push({
+                                                pathname: "/(user)/account/order.detail",
+                                                params: { id: String(item.id) }
+                                            })
+                                        }
                                         style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}
                                     >
 

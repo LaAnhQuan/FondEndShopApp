@@ -128,6 +128,10 @@ const RootLayout = () => {
                                 name="(user)/account/order"
                                 options={{ headerTitle: "Các đơn hàng đã đặt" }}
                             />
+                            <Stack.Screen
+                                name="(user)/account/order.detail"
+                                options={{ headerTitle: "Chi tiết đơn hàng" }}
+                            />
 
                         </Stack>
                     </ThemeProvider>
