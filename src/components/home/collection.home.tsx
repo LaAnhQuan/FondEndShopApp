@@ -1,10 +1,11 @@
 import { APP_COLOR } from "@/utils/constant";
 import { View, Text, StyleSheet, Image, FlatList, Platform, Pressable, Dimensions } from "react-native"; import demo from "@/assets/demo.jpg";
 import { MaterialIcons } from '@expo/vector-icons';
-import { currencyFormatter, getURLBaseBackEnd } from "@/utils/api";
+import { getURLBaseBackEnd } from "@/utils/api";
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from "react";
 import { router } from "expo-router";
+import { currencyFormatter } from "@/utils/format";
 
 interface IProps {
     id: number
@@ -38,7 +39,11 @@ const CollectionHome = React.memo((props: IProps) => {
                 <View style={styles.info}>
                     <View style={styles.title}>
                         <View style={styles.mall}>
-                            <Text style={{ color: "white", fontSize: 12 }}>Mall</Text>
+                            <Text
+                                style={{ color: "white", fontSize: 12 }}
+                            >
+                                Mall
+                            </Text>
                         </View>
                         <Text
                             style={{ fontSize: 15, flex: 1 }}
@@ -62,7 +67,11 @@ const CollectionHome = React.memo((props: IProps) => {
                     </View>
                     <View style={styles.price}>
                         <View>
-                            <Text style={{ color: APP_COLOR.ORANGE, fontWeight: "bold", fontSize: 17 }}>{currencyFormatter(price)}</Text>
+                            <Text
+                                style={{ color: APP_COLOR.ORANGE, fontWeight: "bold", fontSize: 17 }}
+                            >
+                                {currencyFormatter(price)}
+                            </Text>
                         </View>
                         <View>
                             <Text style={{ fontSize: 12 }}>

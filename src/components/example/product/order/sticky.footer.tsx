@@ -1,7 +1,6 @@
 import { Pressable, Text, View } from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { APP_COLOR } from "@/utils/constant";
-import { currencyFormatter } from "@/utils/api";
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { router } from "expo-router";

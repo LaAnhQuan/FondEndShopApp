@@ -37,24 +37,6 @@ export const productsAPI = (query: string) => {
 }
 
 
-export const currencyFormatter = (value: any) => {
-    const options = {
-        significantDigits: 2,
-        thousandsSeparator: '.',
-        decimalSeparator: ',',
-        symbol: 'đ'
-    }
-
-    if (typeof value !== 'number') value = 0.0
-    value = value.toFixed(options.significantDigits)
-
-    const [currency, decimal] = value.split('.')
-    return `${currency.replace(
-        /\B(?=(\d{3})+(?!\d))/g,
-        options.thousandsSeparator
-    )}${options.symbol}`
-}
-
 export const printAsyncStorage = () => {
     AsyncStorage.getAllKeys((err, keys) => {
         AsyncStorage.multiGet(keys!, (error, stores) => {
@@ -118,4 +100,9 @@ export const getRestaurantByName = (name: string) => {
 export const checkOutDirectAPI = (user_id: number, product_variant_id: number, quantity: number, note: string, phone: string, address: string) => {
     const url = `/orders`;
     return axios.post<IBackendRes<ICart>>(url, { user_id, product_variant_id, quantity, note, phone, address });
+}
+
+export const getOrderHistoryAPI = (user_id: number) => {
+    const url = `/orders/user/${user_id}`;
+    return axios.get<IBackendRes<IOrderHistory[]>>(url);
 }

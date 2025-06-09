@@ -2,9 +2,9 @@ import { APP_COLOR } from '@/utils/constant';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { View, Text, LayoutChangeEvent, Pressable } from "react-native";
-import { currencyFormatter } from '@/utils/api';
 import { useState } from 'react';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { currencyFormatter } from '@/utils/format';
 
 interface IProps {
     infoHeight: number;

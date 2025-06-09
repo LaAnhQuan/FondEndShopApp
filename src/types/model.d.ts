@@ -130,5 +130,16 @@ declare global {
         quantity: number,
     }
 
+    interface IOrderHistory {
+        id: number
+        user_id: number,
+        status: number,
+        note: string,
+        phone: string,
+        address: string,
+        total: number,
+        created_at: string,
+    }
+
 }
 
