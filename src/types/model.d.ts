@@ -161,5 +161,12 @@ declare global {
         }
     }
 
+    interface ITopCategory {
+        id: number,
+        name: string,
+        price: number,
+        image: any
+    }
+
 }
 

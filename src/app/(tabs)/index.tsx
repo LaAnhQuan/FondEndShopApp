@@ -1,7 +1,7 @@
 import CustomFlatList from "@/components/CustomFlatList/CustomFlatList";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { createCartAPI, getCartByIdAPI, productsAPI } from "@/utils/api";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,7 +9,6 @@ import CollectionHome from "@/components/home/collection.home";
 import { useCurrentApp } from "@/context/app.context";
 import { router } from "expo-router";
 
-const { height: sHeight, width: sWidth } = Dimensions.get('window');
 const SPACING = 6;
 
 const HomeTab = () => {

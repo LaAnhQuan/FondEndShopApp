@@ -111,3 +111,8 @@ export const getOrderHistoryDetailAPI = (order_id: number) => {
     const url = `/order-details/order/${order_id}`;
     return axios.get<IBackendRes<IOrderDetailHistory[]>>(url);
 }
+
+export const getTopCategory = (ref: string) => {
+    const url = `/product/categories?search=${ref}`;
+    return axios.get<IBackendRes<ITopCategory[]>>(url);
+}
