@@ -74,6 +74,10 @@ const RootLayout = () => {
                                 options={{ headerShown: false }}
                             />
                             <Stack.Screen
+                                name="(auth)/detail_mall"
+                                options={{ headerTitle: "Thông tin nhãn hàng" }}
+                            />
+                            <Stack.Screen
                                 name="(auth)/popup.sale"
                                 options={{
                                     headerShown: false,

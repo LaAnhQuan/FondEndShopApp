@@ -161,12 +161,41 @@ declare global {
         }
     }
 
-    interface ITopCategory {
+    interface ITopProduct {
         id: number,
         name: string,
         price: number,
         image: any
     }
 
+    interface ITopCategory {
+        id: number,
+        name: string,
+        products: ITopProduct[]
+    }
+
+    interface IBrand {
+        name: string; // Tên thương hiệu
+    }
+
+    interface _IProduct {
+        id: number; // ID của sản phẩm
+        name: string; // Tên sản phẩm
+        brand_id: number; // ID của thương hiệu
+        price: number; // Giá sản phẩm
+        description: string; // Mô tả sản phẩm
+        image: string; // Hình ảnh sản phẩm
+        brand: IBrand; // Thông tin thương hiệu
+    }
+
+    interface IBrandProduct {
+        [brand: string]: Array<{
+            id: number;
+            name: string;
+            price: number;
+            description: string;
+            image: string;
+        }>;
+    }
 }
 

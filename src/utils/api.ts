@@ -116,3 +116,8 @@ export const getTopCategory = (ref: string) => {
     const url = `/product/categories?search=${ref}`;
     return axios.get<IBackendRes<ITopCategory[]>>(url);
 }
+
+export const getProductByCategoryIdAPI = (category_id: number) => {
+    const url = `/products/category/${category_id}`;
+    return axios.get<IBackendRes<IBrandProduct>>(url);
+}

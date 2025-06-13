@@ -1,98 +1,21 @@
 import * as React from 'react'
-import { StyleSheet, View, Text } from 'react-native';
-import { faker } from '@faker-js/faker';
+import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import SectionList from 'react-native-tabs-section-list';
+import { APP_COLOR } from '@/utils/constant';
+import { getURLBaseBackEnd } from '@/utils/api';
+import { currencyFormatter } from '@/utils/format';
+import { router } from 'expo-router';
 
-const SECTIONS = [
-    {
-        title: 'Burgers',
-        data: Array(5)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Pizza',
-        data: Array(5)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Sushi and rolls',
-        data: Array(10)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Salads',
-        data: Array(10)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Dessert',
-        data: Array(10)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Dessert1',
-        data: Array(1)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Dessert2',
-        data: Array(2)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    },
-    {
-        title: 'Dessert3',
-        data: Array(3)
-            .fill(0)
-            .map(_ => ({
-                title: faker.commerce.productName(),
-                description: faker.lorem.lines(2),
-                price: faker.commerce.price()
-            }))
-    }
-];
 
 const SectionListLibrary = React.forwardRef(
     (props: any, ref: any) => {
+        const { section } = props
         return (
             <SectionList
+                showsHorizontalScrollIndicator={false}
                 ref={ref}
                 {...props}
-                sections={SECTIONS}
+                sections={section}
                 keyExtractor={item => item.title}
                 stickySectionHeadersEnabled={false}
                 scrollToLocationOffset={50}
@@ -108,7 +31,7 @@ const SectionListLibrary = React.forwardRef(
                         <Text
                             style={[
                                 styles.tabText,
-                                { color: isActive ? '#090909' : '#9e9e9e' }
+                                { color: isActive ? APP_COLOR.ORANGE : '#9e9e9e' }
                             ]}
                         >
                             {title}
@@ -122,13 +45,31 @@ const SectionListLibrary = React.forwardRef(
                     </View>
                 )}
                 renderItem={({ item }) => (
-                    <View style={styles.itemContainer}>
-                        <View style={styles.itemRow}>
-                            <Text style={styles.itemTitle}>{item.title}</Text>
-                            <Text style={styles.itemPrice}>${item.price}</Text>
+                    <Pressable
+                        onPress={() => router.navigate({
+                            pathname: "(user)/product/[id]",
+                            params: { id: item.id }
+                        })}
+                    >
+                        <View style={styles.itemContainer}>
+                            <View>
+                                <Image style={{ height: 80, width: 80 }}
+                                    source={{ uri: `${getURLBaseBackEnd()}/images/${item.image}` }} />
+                            </View>
+                            <View style={styles.itemRow}>
+                                <Text style={styles.itemTitle}>{item.title}</Text>
+                                <View style={styles.priceButtonContainer}>
+                                    <View>
+                                        <Text style={styles.itemPrice}>{currencyFormatter(item.price)}</Text>
+                                        <Text style={styles.hotSaleText}>Đang bán chạy</Text>
+                                    </View>
+                                    <Text style={styles.buyNowText}>
+                                        Mua ngay
+                                    </Text>
+                                </View>
+                            </View>
                         </View>
-                        <Text style={styles.itemDescription}>{item.description}</Text>
-                    </View>
+                    </Pressable>
                 )}
             />
         );
@@ -161,7 +102,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eaeaea'
     },
     sectionHeaderContainer: {
-        height: 10,
+        height: 20,
         backgroundColor: '#f6f6f6',
         borderTopColor: '#f4f4f4',
         borderTopWidth: 1,
@@ -169,10 +110,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     sectionHeaderText: {
-        color: '#010101',
+        color: APP_COLOR.ORANGE,
         backgroundColor: '#fff',
-        fontSize: 23,
-        fontWeight: 'bold',
+        fontSize: 20,
         paddingTop: 25,
         paddingBottom: 5,
         paddingHorizontal: 15
@@ -180,25 +120,47 @@ const styles = StyleSheet.create({
     itemContainer: {
         paddingVertical: 20,
         paddingHorizontal: 15,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        flexDirection: "row",
+        gap: 20,
+        justifyContent: "space-between",
+        alignItems: 'center',
+    },
+    itemRow: {
+        flex: 1,
+        justifyContent: 'space-between',
+    },
+    priceButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: "space-between",
     },
     itemTitle: {
         flex: 1,
-        fontSize: 20,
-        color: '#131313'
+        fontSize: 17,
+        color: '#131313',
+        marginBottom: 10,
     },
     itemPrice: {
-        fontSize: 18,
-        color: '#131313'
+        fontSize: 16,
+        color: APP_COLOR.ORANGE,
     },
-    itemDescription: {
-        marginTop: 10,
-        color: '#b6b6b6',
-        fontSize: 16
+    hotSaleText: {
+        backgroundColor: APP_COLOR.ORANGE,
+        color: "white",
+        paddingHorizontal: 30,
+        paddingVertical: 1,
+        fontSize: 12,
+        borderRadius: 10,
+        marginTop: 5,
     },
-    itemRow: {
-        flexDirection: 'row'
-    }
+    buyNowText: {
+        backgroundColor: APP_COLOR.ORANGE,
+        color: "white",
+        paddingHorizontal: 14,
+        paddingVertical: 7,
+        fontSize: 14,
+    },
 });
 
 export default SectionListLibrary;
