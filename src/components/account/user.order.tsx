@@ -3,27 +3,41 @@ import { getOrderHistoryAPI } from "@/utils/api";
 import { APP_COLOR } from "@/utils/constant";
 import { currencyFormatter, dateTimeFormatter, getStatusName } from "@/utils/format";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native"
+import { Pressable, ScrollView, Text, View, RefreshControl } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 import { router } from "expo-router";
 
 const UserOrder = () => {
     const { appState } = useCurrentApp();
     const [orderHistory, setOrderHistory] = useState<IOrderHistory[]>([]);
-    useEffect(() => {
-        const fetchOrderHistory = async () => {
-            const res = await getOrderHistoryAPI(appState?.user.id as number);
-            if (res.data) {
-                setOrderHistory(res.data)
-            }
+    const [refreshing, setRefreshing] = useState<boolean>(false);
+
+    const fetchOrderHistory = async () => {
+        const res = await getOrderHistoryAPI(appState?.user.id as number);
+        if (res.data) {
+            setOrderHistory(res.data)
         }
+    }
+    useEffect(() => {
         fetchOrderHistory();
     }, []);
+
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await fetchOrderHistory();
+        setRefreshing(false);
+    }
     return (
         <View style={{ flex: 1 }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             >
                 {orderHistory.map((item, index) => {
                     return (
